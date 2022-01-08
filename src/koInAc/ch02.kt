@@ -1,5 +1,6 @@
 package koInAc
 import koInAc.Color.*
+import java.lang.IllegalArgumentException
 
 // 78p - 1/8
 enum class Color(
@@ -10,6 +11,7 @@ enum class Color(
     ,BLUE(0,0,255);
     fun rgb()=(r*256+g)+b
 }
+// 객체를 스트링으로
 fun getMnemonic(c:Color)= when(c){
         RED ->"R"
         ORANGE ->"O"
@@ -17,7 +19,7 @@ fun getMnemonic(c:Color)= when(c){
         GREEN ->"G"
         BLUE ->"B"
     }
-// 객체를 스트링으로
+// 여러객체를 스트링으로
 fun getWarmth(c: Color)= when(c){
     RED, ORANGE,YELLOW->"warm"
     GREEN ->"neutral"
@@ -31,11 +33,10 @@ fun mix(c1:Color,c2:Color)= when(setOf(c1,c2)){
 }
 // 객체리스트를 부울로
 fun mt(c1: Color,c2:Color):Boolean{
-    val m1= mutableListOf(RED,GREEN)
-    val m2= mutableListOf(RED,YELLOW)
-    val m3= mutableListOf(RED,BLUE)
+    val m1= mutableListOf(RED,YELLOW)
+    val m2= mutableListOf(RED,BLUE)
     return when(mutableListOf(c1,c2)){
-        mutableListOf(BLUE,GREEN),m2,m3-> true
+        mutableListOf(BLUE,GREEN),m1,m2-> true
         else -> false
     }
 }
@@ -47,16 +48,37 @@ fun errorCodeDescription(ec:ErrorCode) = when(ec){
     ErrorCode.SUCCESS->"ss"
     else-> throw Exception("notCode")
 }
-
+// 인자없이 조합을 객체로 - 성능향상
 fun mixOptimized(c1:Color,c2: Color)= when
-{
+{   // 조건이 계산식 이어야함
     (c1 == RED && c2 == YELLOW) || (c1 == RED && c2 == BLUE)-> ORANGE
     (c1 == RED && c2 == GREEN) ->  BLUE
     else -> throw java.lang.Exception("Dirty Color")
 }
 
+interface Expr
+class Num(val value: Int) : Expr
+class Sum(val left: Expr, val right: Expr) : Expr
+
+// 스마트 캐스팅
+// if로 조건분기
+fun eval1(e:Expr): Int {
+    if(e is Num){
+        val n = e as Num // 불필요한 캐스팅
+        return n.value
+    }
+    if(e is Sum)
+        return eval1(e.left) + eval1(e.right) // 스마트 캐스팅
+    throw IllegalArgumentException("Unknown expression")
+}
+// when 으로 조건분기
+fun eval2(e:Expr): Int = when(e){
+    is Num -> e.value
+    is Sum -> eval2(e.left) + eval2(e.right)
+    else -> throw IllegalArgumentException("Unknown expression")
+}
+
 
 fun main() {
-    println(mixOptimized(RED,YELLOW))
-
+   println(eval1(Sum(Num(2),Num(3))))
 }
