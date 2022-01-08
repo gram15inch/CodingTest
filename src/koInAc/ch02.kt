@@ -1,6 +1,7 @@
 package koInAc
 import koInAc.Color.*
 import java.lang.IllegalArgumentException
+import java.util.*
 
 // 78p - 1/8
 enum class Color(
@@ -71,6 +72,8 @@ fun eval1(e:Expr): Int {
         return eval1(e.left) + eval1(e.right) // 스마트 캐스팅
     throw IllegalArgumentException("Unknown expression")
 }
+// @호출 : eval1(Sum(Num(2),Num(3))) == 5
+
 // when 으로 조건분기
 fun eval2(e:Expr): Int = when(e){
     is Num -> e.value
@@ -79,6 +82,44 @@ fun eval2(e:Expr): Int = when(e){
 }
 
 
+// when 으로 조건분기(블럭)
+fun evalWithLogging(e: Expr): Int = when(e){
+    is Num ->{
+        println("num: ${e.value}")
+        e.value
+    }
+    is Sum -> {
+        val left = evalWithLogging(e.left)
+        val right = evalWithLogging(e.right)
+        println("left $left + right $right")
+        left + right // 마지막 값이 반환
+    }
+    else -> throw IllegalArgumentException("Unknown expression")
+}
+/* @호출
+    evalWithLogging(
+             Sum(Sum(Num(3)
+                    ,Num(3))
+                ,Sum(Sum(Num(2)
+                        ,Num(2))
+                    ,Sum(Num(1)
+                        ,Num(1)
+                    )
+                )
+            )
+    )
+*/
+
+
+
 fun main() {
-   println(eval1(Sum(Num(2),Num(3))))
+    val binaryReps = TreeMap<Char, String>()
+
+    for(c in 'A'..'f'){ // 연산자를 문자타입에 적용
+        val binary = Integer.toBinaryString(c.toInt())
+        binaryReps[c] = binary
+    }
+    // 92P - 1/8
+
+    
 }
