@@ -1,7 +1,9 @@
 package koInAc
 import koInAc.Color.*
 import sun.util.resources.hr.CalendarData_hr
+import java.io.BufferedReader
 import java.lang.IllegalArgumentException
+import java.lang.NumberFormatException
 import java.util.*
 
 // 78p - 1/8
@@ -136,6 +138,42 @@ fun isLetter(c:Char) = c in 'a'..'z' || c in 'A'..'Z'
 fun isNotDigit(c:Char) = c !in '0'..'9'
 
 // when 에서 in 사용하기
+fun recognize(c:Char) = when(c){
+    in '0'..'9' -> "digit"
+    in 'a'..'z', in 'A'..'Z'-> "letter"
+    else -> "else"
+}
+
+fun inRange(){
+    // 문자 뿐만 아니라 Comparable 을 이용한 모든 클래스로 범위를 만들수있다.
+    // 하지만 항상 객체를 반환 할 수는 없고 범위안에 속하는지는 결정할 수 있다.
+    println("Kotlin" in "Java".."Scala") // "Java" <= "Kotlin" && "Kotlin" <= "Scala"
+    println("Kotlin" in setOf("Java","Scala"))  // 컬렉션도 가능
+
+}
+
+// try 사용
+fun readNumber(r: BufferedReader):Int?{
+    return try{
+        val line = r.readLine()
+        Integer.parseInt(line)
+    }catch (e: NumberFormatException){
+        null
+    }
+    finally {
+        r.close()
+    }
+}
+
+// try 를 식으로 사용
+fun readNumber2(r: BufferedReader){
+    val number = try{ // 식 : 값을 생성
+        Integer.parseInt(r.readLine())
+    }catch (e: NumberFormatException){
+        return // null 을 사용하면 계속 진행된다
+    }
+    println(number)
+}
 
 fun main() {
 
