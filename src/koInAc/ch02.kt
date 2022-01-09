@@ -1,5 +1,6 @@
 package koInAc
 import koInAc.Color.*
+import sun.util.resources.hr.CalendarData_hr
 import java.lang.IllegalArgumentException
 import java.util.*
 
@@ -109,17 +110,35 @@ fun evalWithLogging(e: Expr): Int = when(e){
             )
     )
 */
-
-
-
-fun main() {
+// map 초기화 - for
+fun treeMapForInit(){
     val binaryReps = TreeMap<Char, String>()
 
     for(c in 'A'..'f'){ // 연산자를 문자타입에 적용
         val binary = Integer.toBinaryString(c.toInt())
-        binaryReps[c] = binary
+        // [key] = value
+        binaryReps[c] = binary // java :: binaryReps.put(c,binary)
     }
-    // 92P - 1/8
+    // 92P - 1/9
 
-    
+    for((letter,binary) in binaryReps){
+        println("$letter = $binary")
+    }
+}
+// 배열 초기화 - for
+fun listForInit(){
+    val list = arrayListOf("10","11","1001")
+    for ((index,element) in list.withIndex()) // 인덱스와 함께 이터레이션
+        println("$index: $element")
+}
+// in 으로 범위에 속하는지 검사하기
+fun isLetter(c:Char) = c in 'a'..'z' || c in 'A'..'Z'
+fun isNotDigit(c:Char) = c !in '0'..'9'
+
+// when 에서 in 사용하기
+
+fun main() {
+
+
+
 }
