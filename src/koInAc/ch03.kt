@@ -33,23 +33,49 @@ class Sing : Talk()
 fun Sing.hi() = "sing hi"
 fun say(){
     val t :Talk = Sing()  // 수신객체 타입 : Talk , 수신객체 : Sing
-    println(t.hi()) // 수신객체 타입에 따라 호출
-    // Talk.hi() 호출
+    println(t.hi()) // 수신객체 타입에 따라 호출 : Talk.hi()
+
 }
 
 // 확장 프로퍼티
 var Talk.moveSpace : String
-    get() = "move $space"
+    get() = "move $space" // 게터세터 구현 필수
     set(v :String){
         this.space = v
     }
+
+// 가변 인자 함수 : 인자의 개수가 달라질 수 있는 함수
+fun varArg(vararg args: String){ // vararg : 가변 길이 인자
+    val list = listOf("args: ",*args) // 항상 *연산자로 풀어줘야 한다,  * : 스프레드 연산자
+    for(l in list)
+        print("$l ")
+}
+
+// 중위 호출
+// infix 수정자를 붙여야 호출 할 수 있음
+infix fun Talk.to(string: String) = Pair(this,string) // Pair(1,2) : 두 인자를 쌍으로 만든다
+fun inFixCall(){
+    Talk().to("hi") // 일반 호출
+    Talk() to "hi" // 중위 호출
+}
+// 구조 분해 선언
+fun destructDeclaration(){
+    val (number, name) = 1 to "one" // 쌍이 해체되어 각각의 인자로 들어감
+    // for 문에서 list 구조 분해
+    for ((index, element) in listOf("list1","list2").withIndex()) // withIndex : list 의 인덱스와 같이 반환
+        println("{$index, $element}")
+}
+
+// 문자열 분리
+// 결정자를 문자와 정규식으로 분리해서 받음
+fun regexSplit(){
+    println("12.345-6.A".split(".","-")) // "." 을 문자로 인식
+    println("12.345-6.A".split("\\.|-".toRegex())) // "." 을 정규식으로 인식 - 모든글자
+}
+
+// 1/10
+
 fun main() {
-    val t = Talk()
-
-    println(t.moveSpace)
-    t.moveSpace = "school"
-    println(t.moveSpace)
-
 
 
 }
