@@ -35,6 +35,8 @@ open class RichButton : Clickable{ // open 으로 상속 가능하게 정의
     open fun animate(){} // 함수도 따로 open 으로 정의 해야함
     override fun click(){} // 오버라이드한 메소드는 기본으로 열려있음
 }
+
+// 152p
 fun main() {
 
 }
