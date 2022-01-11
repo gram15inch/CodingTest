@@ -27,10 +27,14 @@ class ButtonInCF : Clickable, Focusable{
     }
 }
 
+// 146p - 1/11
+
+// 열린 메소드를  포함하는 열린 클래스 정의
+open class RichButton : Clickable{ // open 으로 상속 가능하게 정의
+    fun disable(){} // 기본 final
+    open fun animate(){} // 함수도 따로 open 으로 정의 해야함
+    override fun click(){} // 오버라이드한 메소드는 기본으로 열려있음
+}
 fun main() {
-    val button =ButtonInCF()
-    button.showOff()
-    button.setFocus(true)
-    button.click()
 
 }
