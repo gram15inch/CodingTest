@@ -1,34 +1,36 @@
 package koInAc
 
 
+// 141p - 1/11
 
-// 1/10 로 옮겨야함
+// 인터페이스 선언
+interface Clickable{
+    fun click()
+    fun showOff() = println("I'm clickable!") // 구현이 있는 메소드 선언가능 - 디폴트 메소드
+}
+interface Focusable{
+    fun setFocus(b: Boolean) = println("I ${if(b) "got" else "lost"} focus.")
+    fun showOff() = println("I'm focusable!") // - 디폴드 메소드
+}
 
-// 경로 파싱에 정규식 사용하기
-fun parsePath(path:String){
-    val regex = """(.+)/(.+)\.(.+)""".toRegex() // 3중 따옴표 에서는 이스케이프 문자 필요없음 "." : \\. -> \.
-    // (.+)/  : 마지막 슬래시 전까지 모든문자
-    // (.+)\. : 마지막 따옴표 전까지 모든문자
-    // (.+)   : 나머지 모든문자
-    val matchResult = regex.matchEntire(path)
-    if(matchResult !=null){
-        val (directory, filename, extension) = matchResult.destructured
-        println("Dir: $directory, name: $filename, ext: $extension")
+// 인터페이스 구현
+class Button : Clickable{
+    override fun click() = println("I was clicked ")
+    // showOff() - 디폴트 메소드 호출
+}
+
+class ButtonInCF : Clickable, Focusable{
+    override fun click() = println("I waw clicked")
+    override fun showOff() { // 둘 이상의 디폴드 구현이 있는경우 필수적으로 새로운 구현을 해야함
+        super<Clickable>.showOff() // super<상위타입이름>.메소드 - 호출
+        super<Focusable>.showOff() // 구현중 하나만 호출 해도 됨
     }
-    // 호출 : parsePath("/dir/dir2/text.txt")
 }
 
-// 여러줄 3중 따옴표 문자열
-fun tripleQuotation(){
-    val kLogo = """|  // 
-                  .| // 
-                  .|/ \""".trimMargin(".") //  '.' 이전에 들여쓰기를 제거
-    println(kLogo)
-
-    val setDollar = """${'$'}100""" // '$' 를 사용할땐 문자열 템플릿 사용
-    println(setDollar)
-
-}
 fun main() {
+    val button =ButtonInCF()
+    button.showOff()
+    button.setFocus(true)
+    button.click()
 
 }

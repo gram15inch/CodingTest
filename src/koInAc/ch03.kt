@@ -1,6 +1,7 @@
 package koInAc
 import external.ExTalk
 import koInAc.hi
+import java.lang.IllegalArgumentException
 
 // 컬렉션은 자바에 있는걸 그대로 사용
 // 확장함수를 이용해 코틀린 추가기능 구현
@@ -26,7 +27,7 @@ fun Talk.bye() { println("${this}:Talk bye") } // this : 수신객체[생략가�
 fun ExTalk.hi() ="hi"
 fun ExTalk.getC() = content // public 멤버만 접근가능
 
-// 117p - 1/9
+// 117p - 1/10
 
 class Sing : Talk()
 // 확장함수는 오버라이드 불가능 - Talk.hi() (x)
@@ -73,7 +74,70 @@ fun regexSplit(){
     println("12.345-6.A".split("\\.|-".toRegex())) // "." 을 정규식으로 인식 - 모든글자
 }
 
-// 1/10
+// 경로 파싱에 정규식 사용하기
+fun parsePath(path:String){
+    val regex = """(.+)/(.+)\.(.+)""".toRegex() // 3중 따옴표 에서는 이스케이프 문자 필요없음 "." : \\. -> \.
+    // (.+)/  : 마지막 슬래시 전까지 모든문자
+    // (.+)\. : 마지막 따옴표 전까지 모든문자
+    // (.+)   : 나머지 모든문자
+    val matchResult = regex.matchEntire(path)
+    if(matchResult !=null){
+        val (directory, filename, extension) = matchResult.destructured
+        println("Dir: $directory, name: $filename, ext: $extension")
+    }
+    // 호출 : parsePath("/dir/dir2/text.txt")
+}
+
+// 여러줄 3중 따옴표 문자열
+fun tripleQuotation(){
+    val kLogo = """|  // 
+                  .| // 
+                  .|/ \""".trimMargin(".") //  '.' 이전에 들여쓰기를 제거
+    println(kLogo)
+
+    val setDollar = """${'$'}100""" // '$' 를 사용할땐 문자열 템플릿 사용
+    println(setDollar)
+
+}
+
+// 136p - 1/11
+// 로컬함수
+class User(val id: Int, val name: String, val address: String)
+fun saveUser(user: User) {
+
+    // 필드 검증코드 중복
+    if (user.name.isEmpty())
+        throw IllegalArgumentException("Can't save user ${user.id}: empty Name")
+    if (user.address.isEmpty())
+        throw IllegalArgumentException("Can't save user ${user.id}: empty Address")
+
+    // 로컬 함수로 대체 - 중복 제거
+    fun validate(value: String, fieldName: String) {
+        if (value.isEmpty())                                // 바깥함수 파라미터(user)에 직접 접근 가능
+            throw IllegalArgumentException("Can't save user ${user.id}:empty $fieldName}")
+    }
+
+    validate(user.name, "Name")
+    validate(user.address, "Address")
+
+}
+
+// 검증코드를 확장함수로 추출
+fun User.validateBeforeSave(){
+    fun validate(value: String, fieldName: String) {
+        if (value.isEmpty())
+            throw IllegalArgumentException("Can't save user $id:empty $fieldName}")
+    }
+
+    validate(name, "Name")
+    validate(address, "Address")
+
+}
+// 확잠함수로 검증
+fun saveUserEx(user: User){
+    user.validateBeforeSave()
+    println("user ${user.id} save")
+}
 
 fun main() {
 
