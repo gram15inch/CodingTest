@@ -8,68 +8,28 @@ import java.util.*
 
 fun main(){
 
-    val br = BufferedReader(InputStreamReader(System.`in`))
 
-    while (true) {
-        val line = br.readLine()
-        if(line == "")
-            break
-        val token = StringTokenizer(line)
-        var num = token.nextToken().toInt()
-        var sum = 100
-        var sum2 = num
-        var count = 0
-        while(true){
-            when{
-                (sum==num)-> break
-                else -> {
-                    val left = if(sum2<10) 0 else sum2/10
-                    val right = sum2 %10
-                    sum = left + right
-                    sum = right*10 + sum%10
-                    sum2 =sum
-                    count++
-                }
-            }
-        }
-        println("$count")
-    }
-    br.close()
 }
 
 
 
-// A+B - 4 - 1110
+// 더하기 사이클 - 1110
 fun step0403() {
     val br = BufferedReader(InputStreamReader(System.`in`))
-    val bw = BufferedWriter(OutputStreamWriter(System.out))
-    val strBuilder = StringBuilder()
-
-    while (true) {
-        val line = br.readLine()
-        if(line == null) {
-            break
-        }else {
-            val token = StringTokenizer(line)
-            var num = token.nextToken().toInt()
-            var sum = 100
-            while(true){
-                when{
-                    (num>10) -> num *= 10
-                    (sum==num)-> break
-                    else -> {
-                        val left = num /10
-                        val right = num %10
-                        sum = left + right
-                        sum = right*10 + sum%10
-                        print(sum)
-                    }
-                }
-
-            }
-
-        }
-    }
+    var line = br.readLine()
+    var num = line.toInt()
+    var sum : Int
+    var sum2 = num
+    var count = 0
+    do{
+        var left = if(sum2<10) 0 else sum2/10
+        var right = sum2 %10
+        sum = left + right
+        sum = right*10 + sum%10
+        sum2 = sum
+        count++
+    }while (sum!=num)
+    println("$count")
     br.close()
 
 
