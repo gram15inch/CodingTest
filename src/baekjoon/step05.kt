@@ -7,10 +7,57 @@ import java.io.OutputStreamWriter
 import java.util.*
 
 fun main() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
 
+    val digits = arrayOf(0,0,0,0,0,0,0,0,0,0)
+    val count = arrayOf(0,0,0,0,0,0,0,0,0,0)
+    for(idx in 0..9)
+        digits[idx] = br.readLine().toInt()%42
+    // 3052
+
+    for (idx in 1..9)
+        if (size ==idx)
+            count[(idx-48).toInt()] +=1
+
+    for(c in count)
+        bw.write("$c\n")
+
+
+
+    bw.flush()
+    bw.close()
+    br.close()
 }
 
-// 최소, 최대 - 10818
+// 숫자의 개수 - 2577
+fun step0503(){
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+
+    var sum = 1
+    for(idx in 1 ..3)
+        sum *= br.readLine().toInt()
+    var sumStr = sum.toString()
+    var count = arrayOf(0,0,0,0,0,0,0,0,0,0)
+
+    for (size in sumStr)
+        for(idx in '0'..'9')
+            if (size ==idx)
+                count[(idx-48).toInt()] +=1
+
+    for(c in count)
+        bw.write("$c\n")
+
+
+
+    bw.flush()
+    bw.close()
+    br.close()
+}
+
+// 최댓값 - 2562
 fun step0502(){
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
