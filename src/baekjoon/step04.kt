@@ -10,20 +10,20 @@ fun main(){
 
     val br = BufferedReader(InputStreamReader(System.`in`))
 
-
     while (true) {
-        val token = StringTokenizer(br.readLine())
+        val line = br.readLine()
+        if(line == "")
+            break
+        val token = StringTokenizer(line)
         var num = token.nextToken().toInt()
         var sum = 100
         var sum2 = num
         var count = 0
         while(true){
             when{
-                (num<10 && sum2 != 0) -> num *= 10
-                (sum==num)-> {
-                    break }
+                (sum==num)-> break
                 else -> {
-                    val left = sum2 /10
+                    val left = if(sum2<10) 0 else sum2/10
                     val right = sum2 %10
                     sum = left + right
                     sum = right*10 + sum%10
@@ -33,9 +33,8 @@ fun main(){
             }
         }
         println("$count")
-
     }
-
+    br.close()
 }
 
 
