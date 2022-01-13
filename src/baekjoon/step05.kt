@@ -7,6 +7,15 @@ import java.io.OutputStreamWriter
 import java.util.*
 
 fun main() {
+
+}
+
+// 평균 - 1546
+fun step0504() {
+
+}
+// 나머지 - 3052
+fun step0504() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
@@ -18,47 +27,41 @@ fun main() {
     for(idx in 0..9)
         digits[idx] = br.readLine().toInt()%42
 
-
-    for ((idxA,digitA) in digits.withIndex())
-        for ((idxB,digitB) in digits.withIndex())
+    var isRestCount = false
+    for ((digitA) in digits.withIndex())
+        for ((digitB) in digits.withIndex())
             when{
-                (digitA==digitB)&&(idxA!=idxB)->{
+                (digitA==digitB)->{
                     if(diffRestCount==0) {
                         diffRest[0] = digitB
                         diffRestCount++
                     }else {
+                        isRestCount = false
                         for (drIdx in 0 until diffRestCount) {
-                            if (diffRest[drIdx] == digitB)
-                                break
-                            else {
+                            if (diffRest[drIdx] == digitB){
+                                isRestCount = true
                                 break
                             }
                         }
-                        diffRest[diffRestCount] = digitB
-                        diffRestCount++
+                        if(!isRestCount){
+                            diffRest[diffRestCount] = digitB
+                            diffRestCount++
+                        }
+
                     }
 
                 }
             }
 
-var sum =0
+    var sum =0
     for(c in diffRest)
         if(c>=0)
             sum++
-        bw.write("$sum")
-
-
-
-
+    bw.write("$sum\n")
 
     bw.flush()
     bw.close()
     br.close()
-}
-
-// 나머지 - 3052
-fun step0504() {
-
 }
 
 // 숫자의 개수 - 2577
