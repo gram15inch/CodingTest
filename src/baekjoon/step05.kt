@@ -11,23 +11,54 @@ fun main() {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
     val digits = arrayOf(0,0,0,0,0,0,0,0,0,0)
-    val count = arrayOf(0,0,0,0,0,0,0,0,0,0)
+    val diffRest = arrayOf(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)
+
+    var diffRestCount = 0
+
     for(idx in 0..9)
         digits[idx] = br.readLine().toInt()%42
-    // 3052
 
-    for (idx in 1..9)
-        if (size ==idx)
-            count[(idx-48).toInt()] +=1
 
-    for(c in count)
-        bw.write("$c\n")
+    for ((idxA,digitA) in digits.withIndex())
+        for ((idxB,digitB) in digits.withIndex())
+            when{
+                (digitA==digitB)&&(idxA!=idxB)->{
+                    if(diffRestCount==0) {
+                        diffRest[0] = digitB
+                        diffRestCount++
+                    }else {
+                        for (drIdx in 0 until diffRestCount) {
+                            if (diffRest[drIdx] == digitB)
+                                break
+                            else {
+                                break
+                            }
+                        }
+                        diffRest[diffRestCount] = digitB
+                        diffRestCount++
+                    }
+
+                }
+            }
+
+var sum =0
+    for(c in diffRest)
+        if(c>=0)
+            sum++
+        bw.write("$sum")
+
+
 
 
 
     bw.flush()
     bw.close()
     br.close()
+}
+
+// 나머지 - 3052
+fun step0504() {
+
 }
 
 // 숫자의 개수 - 2577
