@@ -7,12 +7,113 @@ import java.io.OutputStreamWriter
 import java.util.*
 
 fun main() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    val ratioAboveAverage = mutableListOf<Double>()
+
+    val cases =br.readLine().toInt()
+    val averages = mutableListOf<Float>()
+    for(case in 1 .. cases){
+        averages.clear()
+        val token = StringTokenizer(br.readLine())
+        val size = token.nextToken().toInt()
+        val average : Float
+        var sum = 0.0
+        for(s in 0 until  size){
+            sum += token.nextToken().toFloat().apply{
+                averages.add(this)
+            }
+
+        }
+        var avgAboveCount  = 0.0
+        for(avs in averages)
+            if(sum/size < avs)
+                avgAboveCount++
+
+        ratioAboveAverage.add(avgAboveCount/size*100)
+    }
+    for(score in ratioAboveAverage)
+        bw.write("${String.format("%.3f", score)}%\n")
+
+    bw.flush()
+    bw.close()
+    br.close()
 
 }
 
+
+// 평균은 넘겠지 - 4344
+fun step0506() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    val ratioAboveAverage = mutableListOf<Double>()
+
+    val cases =br.readLine().toInt()
+    val averages = mutableListOf<Float>()
+    for(case in 1 .. cases){
+        averages.clear()
+        val token = StringTokenizer(br.readLine())
+        val size = token.nextToken().toInt()
+        val average : Float
+        var sum = 0.0
+        for(s in 0 until  size){
+            sum += token.nextToken().toFloat().apply{
+                averages.add(this)
+            }
+
+        }
+        var avgAboveCount  = 0.0
+        for(avs in averages)
+            if(sum/size < avs)
+                avgAboveCount++
+
+        ratioAboveAverage.add(avgAboveCount/size*100)
+    }
+    for(score in ratioAboveAverage)
+        bw.write("${String.format("%.3f", score)}%\n")
+
+    bw.flush()
+    bw.close()
+    br.close()
+
+}
+
+
 // 평균 - 1546
 fun step0505() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
 
+    val scores = mutableListOf<Int>()
+
+
+    val size =br.readLine().toInt()
+    var continuousScore = 0
+    var score :Int
+    for(sIdx in 1 .. size)
+        br.readLine().toString().run {
+            score =0
+            continuousScore = 0
+            for(c in this)
+                when(c){
+                    'O'-> {
+                        score += ++continuousScore
+                    }
+                    'X'->{
+                        continuousScore =0
+                    }
+                }
+            scores.add(score)
+        }
+
+    for (s in scores)
+        bw.write("$s\n")
+
+    bw.flush()
+    bw.close()
+    br.close()
 }
 // 나머지 - 3052
 fun step0504() {
@@ -28,8 +129,8 @@ fun step0504() {
         digits[idx] = br.readLine().toInt()%42
 
     var isRestCount = false
-    for ((digitA) in digits.withIndex())
-        for ((digitB) in digits.withIndex())
+    for (digitA in digits)
+        for (digitB in digits)
             when{
                 (digitA==digitB)->{
                     if(diffRestCount==0) {
@@ -37,19 +138,14 @@ fun step0504() {
                         diffRestCount++
                     }else {
                         isRestCount = false
-                        for (drIdx in 0 until diffRestCount) {
+                        for (drIdx in 0 until diffRestCount)
                             if (diffRest[drIdx] == digitB){
                                 isRestCount = true
                                 break
                             }
-                        }
-                        if(!isRestCount){
-                            diffRest[diffRestCount] = digitB
-                            diffRestCount++
-                        }
-
+                        if(!isRestCount)
+                            diffRest[diffRestCount++] = digitB
                     }
-
                 }
             }
 
