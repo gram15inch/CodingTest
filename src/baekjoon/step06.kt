@@ -9,9 +9,52 @@ import java.util.*
 fun main() {
 
 }
-// 한수
-fun step063(){
 
+
+// 한수
+fun step0603(){
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    fun isHan(x:Int):Boolean{
+        var digits = x
+        var digit :Int
+        val commonDifference :Int
+        var digitBefore :Int
+        var digitAfter :Int
+
+        digit = digits%10
+        digits /= 10
+        digitBefore = digit
+        if(digits>0) {
+            digit = digits % 10
+            digits /= 10
+            digitAfter = digit
+            commonDifference = (digitBefore+1) - (digitAfter+1)
+            digitBefore = digitAfter
+            while (digits > 0) {
+                digit = digits % 10
+                digits /= 10
+                if (commonDifference !=  (digitBefore+1) - (digit+1))
+                    return false
+                digitBefore = digit
+            }
+        }
+        return true
+    }
+
+    var sum =0
+    val number = br.readLine().toInt()
+    for(n in 1 .. number)
+        if(isHan(n)) sum++
+
+
+    bw.write("$sum")
+
+
+    bw.flush()
+    bw.close()
+    br.close()
 }
 
 // 셀프 넘버 - 4673
