@@ -6,53 +6,116 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.lang.StringBuilder
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 fun main() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
 
+    var chars = br.readLine().toCharArray()
+    val charQueue : Queue<Char>
+    charQueue = LinkedList()
+    var croChars = listOf("c=","c-","dz=","d-","lj","nj","s=","z=")
+    
+    for(char in chars)
+        charQueue.add(char)
+
+
+    while(charQueue.){
+
+    }
+
+}
+// 크로아티아 알파벳 - 2941
+fun step0709() {
 
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    var token = StringTokenizer(br.readLine())
+    var chars = br.readLine().toCharArray()
 
+    var croChars = listOf("c=","c-","dz=","d-","lj","nj","s=","z=")
     var sum =0
-    val a :Int
-    val b :Int
-    val strBuilder = StringBuilder()
-    val charStack = Stack<Char>()
+    var strBuilder = StringBuilder()
+    var isCroChar = 0
+    for((cIdx,char) in chars.withIndex())
+        sum += when{
+            (strBuilder.toString() != "")-> {
+                isCroChar =0
+                for(croChar in croChars)
+                    if(croChar == (strBuilder.toString()+char)){
+                        isCroChar= 1
+                        strBuilder.clear()
+                        break
+                    }
 
-    for(char in token.nextToken().toCharArray())
-        charStack.add(char)
+                if(isCroChar==0){
+                    when{
+                        (strBuilder.toString()+char == "dz") && (cIdx == chars.size-1)-> isCroChar = 2
+                        (strBuilder.toString()+char == "dz") -> strBuilder.append(char)
+                        else->{
+                            isCroChar = when {
+                                (strBuilder.toString() == "dz")&&(cIdx == chars.size-1) -> 3
+                                (strBuilder.toString() == "dz") -> 2
+                                else -> 1
+                            }
+                            strBuilder.clear()
+                            strBuilder.append(char)
 
-    for(char in 1..charStack.size)
-        strBuilder.append(charStack.pop())
-    a = strBuilder.toString().toInt()
 
-    strBuilder.clear()
+                        }
+                    }
 
-    for(char in token.nextToken().toCharArray())
-        charStack.add(char)
-
-    for(char in 1..charStack.size)
-        strBuilder.append(charStack.pop())
-
-    b = strBuilder.toString().toInt()
-    if(a>b)
-        bw.write("$a")
-    else
-        bw.write("$b")
-
+                }
+                isCroChar
+            }
+            (char =='c')||(char =='d')||(char =='s')
+                    ||(char =='n')||(char =='l')||(char =='z')->{
+                if(cIdx == chars.size-1)
+                    1
+                else{
+                    strBuilder.append(char)
+                    0
+                }
+            }
+            ('A'<char)||(char<'Z')|| ('a'<char)||(char<'z')->1
+            else -> 0
+        }
+    bw.write("$sum")
 
     bw.flush()
     bw.close()
     br.close()
-}
 
+}
 // 다이얼 - 5622
 fun step0708() {
 
-    
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    var chars = br.readLine().toCharArray()
+
+    var sum =0
+    for(char in chars)
+        sum += when{
+            (char =='A')||(char =='B')||(char =='C')->3
+            (char =='D')||(char =='E')||(char =='F')->4
+            (char =='G')||(char =='H')||(char =='I')->5
+            (char =='J')||(char =='K')||(char =='L')->6
+            (char =='M')||(char =='N')||(char =='O')->7
+            (char =='P')||(char =='Q')||(char =='R')||(char =='S')->8
+            (char =='T')||(char =='U')||(char =='V')->9
+            (char =='W')||(char =='X')||(char =='Y')||(char =='Z')->10
+            else -> 11
+        }
+    bw.write("$sum")
+
+    bw.flush()
+    bw.close()
+    br.close()
+
 }
 // 상수 - 2908
 fun step0707() {
