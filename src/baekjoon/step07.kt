@@ -9,11 +9,77 @@ import java.util.*
 
 
 fun main() {
+
+}
+
+
+
+// 그룹 단어 체커 - 1316
+fun step0710() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    //var chars = br.readLine().toCharArray()
-    var chars = "lol"
+
+
+    var size = br.readLine().toInt()
+    val lines = mutableListOf<String>()
+    for(time in 1.. size)
+        lines.add(br.readLine().toString())
+
+    var isUseIdx :Int
+    var isUseArray =CharArray(100)
+    var sum =0
+    var isGroup :Boolean
+    var beforeChar : Char
+
+    for (line in lines){
+
+        isGroup = true
+        isUseIdx =0
+        isUseArray[0] = line[0]
+        beforeChar = line[0]
+        var curIdx :Int
+        for((cIdx,char) in line.withIndex()) {
+            if(cIdx == 0){
+                continue
+            }
+            if(beforeChar == char){
+                beforeChar = char
+                continue
+            }else{
+                curIdx = isUseIdx
+                while(curIdx>=0) {
+                    if (isUseArray[curIdx--] == char) {
+                        isGroup = false
+                        break
+                    }
+
+                }
+                if(!isGroup)
+                    break
+                isUseArray[++isUseIdx] = char
+                beforeChar = char
+                continue
+            }
+        }
+
+        if(isGroup)
+            sum++
+    }
+
+
+    bw.write("$sum")
+    bw.flush()
+    bw.close()
+    br.close()
+}
+// 크로아티아 알파벳 - 2941
+fun step0709() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    var chars = br.readLine().toCharArray()
+    //var chars = "dz=ak"
     var charList = chars.toList()
     var croChars = listOf("c=","c-","dz=","d-","lj","nj","s=","z=")
 
@@ -23,7 +89,18 @@ fun main() {
     var c3 :Char
     var strBuilder = StringBuilder()
     var sum =0
-    var isTwoSize = false
+
+    var isCroChars = false
+    /*  fun isCroChars():Boolean{
+          for(cro in croChars)
+              if(cro == strBuilder.toString()){
+                  sum++
+                  strBuilder.clear()
+                  return true
+              }
+          return false
+      }*/
+
     while (true){
 
 
@@ -50,10 +127,12 @@ fun main() {
                     c1= listIterator.next()
 
                     if(strBuilder.toString() + c1 == "dz=") {
-                        sum += 3
+                        sum++
                         strBuilder.clear()
                         continue
                     }
+                    sum +=2
+                    strBuilder.clear()
                     listIterator.previous()
                     continue
                 }else{
@@ -61,87 +140,32 @@ fun main() {
                     break
                 }
             }
-
+            isCroChars =false
             for(cro in croChars)
                 if(cro == strBuilder.toString()){
                     sum++
                     strBuilder.clear()
-                    continue
+                    isCroChars = true
                 }
 
-            sum++
-            strBuilder.clear()
-            listIterator.previous()
+
+            if(!isCroChars){
+                sum++
+                strBuilder.clear()
+                listIterator.previous()
+            }
+
+
+
         }
 
         if(strBuilder.length > 1)
             throw IllegalArgumentException("length : $strBuilder")
 
 
-
-
-
     }
 
-
-}
-// 크로아티아 알파벳 - 2941
-fun step0709() {
-
-    val br = BufferedReader(InputStreamReader(System.`in`))
-    val bw = BufferedWriter(OutputStreamWriter(System.out))
-
-    var chars = br.readLine().toCharArray()
-
-    var croChars = listOf("c=","c-","dz=","d-","lj","nj","s=","z=")
-    var sum =0
-    var strBuilder = StringBuilder()
-    var isCroChar = 0
-    for((cIdx,char) in chars.withIndex())
-        sum += when{
-            (strBuilder.toString() != "")-> {
-                isCroChar =0
-                for(croChar in croChars)
-                    if(croChar == (strBuilder.toString()+char)){
-                        isCroChar= 1
-                        strBuilder.clear()
-                        break
-                    }
-
-                if(isCroChar==0){
-                    when{
-                        (strBuilder.toString()+char == "dz") && (cIdx == chars.size-1)-> isCroChar = 2
-                        (strBuilder.toString()+char == "dz") -> strBuilder.append(char)
-                        else->{
-                            isCroChar = when {
-                                (strBuilder.toString() == "dz")&&(cIdx == chars.size-1) -> 3
-                                (strBuilder.toString() == "dz") -> 2
-                                else -> 1
-                            }
-                            strBuilder.clear()
-                            strBuilder.append(char)
-
-
-                        }
-                    }
-
-                }
-                isCroChar
-            }
-            (char =='c')||(char =='d')||(char =='s')
-                    ||(char =='n')||(char =='l')||(char =='z')->{
-                if(cIdx == chars.size-1)
-                    1
-                else{
-                    strBuilder.append(char)
-                    0
-                }
-            }
-            ('A'<char)||(char<'Z')|| ('a'<char)||(char<'z')->1
-            else -> 0
-        }
     bw.write("$sum")
-
     bw.flush()
     bw.close()
     br.close()
@@ -216,8 +240,6 @@ fun step0707() {
     br.close()
 
 }
-
-
 // 단어의 개수- 1152
 fun step0706() {
 
@@ -237,7 +259,7 @@ fun step0706() {
     bw.close()
     br.close()
 }
-// 문자열 반복- 2675
+// 단어공부 - 1157
 fun step0705() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
@@ -268,7 +290,6 @@ fun step0705() {
     bw.close()
     br.close()
 }
-
 // 문자열 반복- 2675
 fun step0704() {
 
@@ -301,7 +322,6 @@ fun step0704() {
     bw.close()
     br.close()
 }
-
 // 알파벳 찾기- 10809
 fun step0703() {
 
@@ -334,8 +354,6 @@ fun step0703() {
     bw.close()
     br.close()
 }
-
-
 // 숫자의 합- 117220
 fun step0702() {
 
@@ -355,7 +373,6 @@ fun step0702() {
     br.close()
 
 }
-
 // 아스키 코드 - 11654
 fun step0701(){
     val br = BufferedReader(InputStreamReader(System.`in`))
