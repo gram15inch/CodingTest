@@ -6,25 +6,83 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.lang.StringBuilder
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    var chars = br.readLine().toCharArray()
-    val charQueue : Queue<Char>
-    charQueue = LinkedList()
+    //var chars = br.readLine().toCharArray()
+    var chars = "lol"
+    var charList = chars.toList()
     var croChars = listOf("c=","c-","dz=","d-","lj","nj","s=","z=")
-    
-    for(char in chars)
-        charQueue.add(char)
+
+    val listIterator = charList.listIterator()
+    var c1 :Char
+    var c2 :Char
+    var c3 :Char
+    var strBuilder = StringBuilder()
+    var sum =0
+    var isTwoSize = false
+    while (true){
 
 
-    while(charQueue.){
+        if(strBuilder.isBlank())
+            if(listIterator.hasNext()) {
+                c1= listIterator.next()
+                strBuilder.append(c1)
+                continue
+            }else
+                break
+
+
+        if(strBuilder.length == 1){
+            if(listIterator.hasNext()){
+                c1= listIterator.next()
+                strBuilder.append(c1)
+            }else{
+                sum++
+                break
+            }
+
+            if(strBuilder.toString() == "dz"){
+                if(listIterator.hasNext()){
+                    c1= listIterator.next()
+
+                    if(strBuilder.toString() + c1 == "dz=") {
+                        sum += 3
+                        strBuilder.clear()
+                        continue
+                    }
+                    listIterator.previous()
+                    continue
+                }else{
+                    sum += 2
+                    break
+                }
+            }
+
+            for(cro in croChars)
+                if(cro == strBuilder.toString()){
+                    sum++
+                    strBuilder.clear()
+                    continue
+                }
+
+            sum++
+            strBuilder.clear()
+            listIterator.previous()
+        }
+
+        if(strBuilder.length > 1)
+            throw IllegalArgumentException("length : $strBuilder")
+
+
+
+
 
     }
+
 
 }
 // 크로아티아 알파벳 - 2941
