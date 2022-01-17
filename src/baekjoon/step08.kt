@@ -7,7 +7,27 @@ import java.io.OutputStreamWriter
 import java.util.*
 
 fun main() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
 
+    var n =0
+    val num = br.readLine().toInt()
+    var an = 0
+
+    while(an < num) {
+        n++
+        an = 3*n*(n-1)+1
+   }
+
+    bw.write("$n")
+
+    bw.flush()
+    bw.close()
+    br.close()
+}
+
+// 벌집 - 2292
+fun step0802(){
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
@@ -32,11 +52,6 @@ fun main() {
     bw.flush()
     bw.close()
     br.close()
-}
-
-// 벌집 - 2292
-fun step0802(){
-
 }
 // 손익 분기점 - 1712
 fun step0801(){
