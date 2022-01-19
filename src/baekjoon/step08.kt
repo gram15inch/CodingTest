@@ -13,13 +13,44 @@ fun main() {
     var n =0
     val num = br.readLine().toInt()
     var an = 0
-
     while(an < num) {
         n++
-        an = 3*n*(n-1)+1
+        an = ((n-1)*(n+2)+2)/2
    }
 
-    bw.write("$n")
+    val anRP:Int = an - num  //anRelativePosition
+
+    when{
+        (n%2 == 0)->bw.write("${(n-anRP)}/${1+anRP}")
+        (n%2 == 1)->bw.write("${1+anRP}/${(n-anRP)}")
+    }
+
+
+    bw.flush()
+    bw.close()
+    br.close()
+}
+
+// 분수찾기 - 1193
+fun step0803(){
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    var n =0
+    val num = br.readLine().toInt()
+    var an = 0
+    while(an < num) {
+        n++
+        an = ((n-1)*(n+2)+2)/2
+    }
+
+    val anRP:Int = an - num  //anRelativePosition
+
+    when{
+        (n%2 == 0)->bw.write("${(n-anRP)}/${1+anRP}")
+        (n%2 == 1)->bw.write("${1+anRP}/${(n-anRP)}")
+    }
+
 
     bw.flush()
     bw.close()
