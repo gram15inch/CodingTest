@@ -10,25 +10,61 @@ fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    var n =0
-    val num = br.readLine().toInt()
-    var an = 0
-    while(an < num) {
-        n++
-        an = ((n-1)*(n+2)+2)/2
-   }
+    val token = StringTokenizer(br.readLine())
+    //val token = StringTokenizer("2 1 5") // 3 / 1 = 3
+    //val token = StringTokenizer("5 1 11") // 6 / 4  = 0.25
+    //val token = StringTokenizer("100 99 1000000000")
 
-    val anRP:Int = an - num  //anRelativePosition
 
-    when{
-        (n%2 == 0)->bw.write("${(n-anRP)}/${1+anRP}")
-        (n%2 == 1)->bw.write("${1+anRP}/${(n-anRP)}")
+    val a = token.nextToken().toInt()
+    val b = token.nextToken().toInt()
+    val v = token.nextToken().toInt()
+
+    if(a>=v){
+        bw.write("1")
     }
+    else if((v-a)%(a-b)==0)
+            bw.write("${(v-a)/(a-b)+1}")
+        else
+            bw.write("${(v-a)/(a-b)+2}")
 
 
     bw.flush()
     bw.close()
     br.close()
+
+
+}
+
+// 달팽이는 올라가고 싶다 - 2869
+fun step0804() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    val token = StringTokenizer(br.readLine())
+    //val token = StringTokenizer("2 1 5") // 3 / 1 = 3
+    //val token = StringTokenizer("5 1 11") // 6 / 4  = 0.25
+    //val token = StringTokenizer("100 99 1000000000")
+
+
+    val a = token.nextToken().toInt()
+    val b = token.nextToken().toInt()
+    val v = token.nextToken().toInt()
+
+    if(a>=v){
+        bw.write("1")
+    }
+    else if((v-a)%(a-b)==0)
+        bw.write("${(v-a)/(a-b)+1}")
+    else
+        bw.write("${(v-a)/(a-b)+2}")
+
+
+    bw.flush()
+    bw.close()
+    br.close()
+
+
 }
 
 // 분수찾기 - 1193
