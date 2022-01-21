@@ -21,27 +21,44 @@ fun main() {
     var h :Int
     var w :Int
     var num :Int
-    var n :Double
-    var isInt :Boolean
-
+    var n =0
     for(time in 1.. size) {
         token = StringTokenizer(br.readLine())
         h = token.nextToken().toInt()
         w = token.nextToken().toInt()
         num = token.nextToken().toInt()
-        n=log10(num.toDouble())/log10(h.toDouble())
-        isInt = log10(num.toDouble())%log10(h.toDouble()) == (0).toDouble()
-        if(isInt)
-            bw.write("${num%h}%02d\n".format(n.toInt()))
-        else
-            bw.write("${num%h}%02d\n".format(n.toInt())+1)
 
-
+        n = (num+h-1)/h
+        bw.write("${if(num%h==0) h else num%h }%02d\n".format(n))
     }
     bw.flush()
+    bw.close()
+    br.close()
+}
+
+// ACM 호텔 - 10250
+fun step0805() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
 
 
+    val size = br.readLine().toInt()
+    
+    var token : StringTokenizer
+    var h :Int
+    var w :Int
+    var num :Int
+    var n =0
+    for(time in 1.. size) {
+        token = StringTokenizer(br.readLine())
+        h = token.nextToken().toInt()
+        w = token.nextToken().toInt()
+        num = token.nextToken().toInt()
 
+        n = (num+h-1)/h
+        bw.write("${if(num%h==0) h else num%h }%02d\n".format(n))
+    }
+    bw.flush()
     bw.close()
     br.close()
 }
