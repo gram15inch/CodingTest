@@ -4,36 +4,46 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.lang.Math.pow
 import java.util.*
+import kotlin.math.log10
+import kotlin.math.pow
 
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    val token = StringTokenizer(br.readLine())
-    //val token = StringTokenizer("2 1 5") // 3 / 1 = 3
-    //val token = StringTokenizer("5 1 11") // 6 / 4  = 0.25
-    //val token = StringTokenizer("100 99 1000000000")
+
+    val size = br.readLine().toInt()
 
 
-    val a = token.nextToken().toInt()
-    val b = token.nextToken().toInt()
-    val v = token.nextToken().toInt()
+    var token : StringTokenizer
+    var h :Int
+    var w :Int
+    var num :Int
+    var n :Double
+    var isInt :Boolean
 
-    if(a>=v){
-        bw.write("1")
-    }
-    else if((v-a)%(a-b)==0)
-            bw.write("${(v-a)/(a-b)+1}")
+    for(time in 1.. size) {
+        token = StringTokenizer(br.readLine())
+        h = token.nextToken().toInt()
+        w = token.nextToken().toInt()
+        num = token.nextToken().toInt()
+        n=log10(num.toDouble())/log10(h.toDouble())
+        isInt = log10(num.toDouble())%log10(h.toDouble()) == (0).toDouble()
+        if(isInt)
+            bw.write("${num%h}%02d\n".format(n.toInt()))
         else
-            bw.write("${(v-a)/(a-b)+2}")
+            bw.write("${num%h}%02d\n".format(n.toInt())+1)
 
 
+    }
     bw.flush()
+
+
+
     bw.close()
     br.close()
-
-
 }
 
 // 달팽이는 올라가고 싶다 - 2869
