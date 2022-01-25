@@ -4,38 +4,141 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.lang.Math.pow
 import java.util.*
-import kotlin.math.log10
-import kotlin.math.pow
+
 
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
+    val kg = br.readLine().toInt()
+    //val kg = 6
 
-    val size = br.readLine().toInt()
 
+    var ea =   if(kg < 15) kg/5 else ((kg / 15) * 15) / 5
+    var remain =  if(kg < 15) kg%5 else kg % 15
+    var isValue = true
 
-    var token : StringTokenizer
-    var h :Int
-    var w :Int
-    var num :Int
-    var n =0
-    for(time in 1.. size) {
-        token = StringTokenizer(br.readLine())
-        h = token.nextToken().toInt()
-        w = token.nextToken().toInt()
-        num = token.nextToken().toInt()
+    when {
+        (remain % 3 == 0) -> ea += remain / 3
+        (remain % 5 == 0) -> ea += remain / 5
+        else -> {
+            var x = remain / 3 + 1 // 3
+            var y = 0 // 5
+            var maxX = x
 
-        n = (num+h-1)/h
-        bw.write("${if(num%h==0) h else num%h }%02d\n".format(n))
+            while (true) {
+                when {
+                    (maxX == 0) -> {
+                        if(ea==0){
+                            isValue = false
+                            break
+                        }
+
+                        ea--
+                        remain +=5
+                        x = remain / 3 +1
+                        y=0
+                        maxX = x
+                    }
+
+                    (x * 3 + y * 5 > remain) || (x == 0) -> {
+                        maxX--
+                        x = maxX
+                        y = 0
+                    }
+                    (x * 3 + y * 5 == remain) -> {
+                        ea += x + y
+                        break
+                    }
+                    else -> {
+                        x--
+                        y++
+                    }
+                }
+            }
+
+        }
     }
+
+    if (isValue)
+        bw.write("$ea\n")
+    else
+        bw.write("-1\n")
+
     bw.flush()
     bw.close()
     br.close()
 }
 
+
+
+// 부녀회장이 될테야 - 2775
+fun step0806(kg:Int):Int {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    val kg = br.readLine().toInt()
+    //val kg = 6
+
+
+    var ea =   if(kg < 15) kg/5 else ((kg / 15) * 15) / 5
+    var remain =  if(kg < 15) kg%5 else kg % 15
+    var isValue = true
+
+    when {
+        (remain % 3 == 0) -> ea += remain / 3
+        (remain % 5 == 0) -> ea += remain / 5
+        else -> {
+            var x = remain / 3 + 1 // 3
+            var y = 0 // 5
+            var maxX = x
+
+            while (true) {
+                when {
+                    (maxX == 0) -> {
+                        if(ea==0){
+                            isValue = false
+                            break
+                        }
+
+                        ea--
+                        remain +=5
+                        x = remain / 3 +1
+                        y=0
+                        maxX = x
+                    }
+
+                    (x * 3 + y * 5 > remain) || (x == 0) -> {
+                        maxX--
+                        x = maxX
+                        y = 0
+                    }
+                    (x * 3 + y * 5 == remain) -> {
+                        ea += x + y
+                        break
+                    }
+                    else -> {
+                        x--
+                        y++
+                    }
+                }
+            }
+
+        }
+    }
+
+    if (isValue)
+        bw.write("$ea\n")
+    else
+        bw.write("-1\n")
+
+    bw.flush()
+    bw.close()
+    br.close()
+
+
+}
 // ACM 호텔 - 10250
 fun step0805() {
     val br = BufferedReader(InputStreamReader(System.`in`))
@@ -43,7 +146,8 @@ fun step0805() {
 
 
     val size = br.readLine().toInt()
-    
+
+
     var token : StringTokenizer
     var h :Int
     var w :Int
