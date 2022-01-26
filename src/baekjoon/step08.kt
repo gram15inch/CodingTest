@@ -4,6 +4,7 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.lang.StringBuilder
 import java.util.*
 
 
@@ -11,70 +12,145 @@ fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    val kg = br.readLine().toInt()
-    //val kg = 6
+/*
+
+    val token = StringTokenizer(br.readLine())
+
+    val strBuilder = StringBuilder()
+
+    val a = token.nextToken().toString()
+    val b = token.nextToken().toString()
+*/
+
+    val strBuilder = StringBuilder()
+    val b = "99999999999999999919"
+    val a = "1"
+
+    var aIdx = a.length -1
+    var bIdx = b.length -1
+    var up :Long = 0
 
 
-    var ea =   if(kg < 15) kg/5 else ((kg / 15) * 15) / 5
-    var remain =  if(kg < 15) kg%5 else kg % 15
-    var isValue = true
+    fun setNum(num :Long,cmd :Int){
+        strBuilder.insert(0, if(strBuilder.isNotBlank()) up+num else num)
+        when(cmd){
+            1->{
+                up = (strBuilder[0]-48).toLong()
+                strBuilder.delete(0,1)
+            }
+        }
+    }
 
-    when {
-        (remain % 3 == 0) -> ea += remain / 3
-        (remain % 5 == 0) -> ea += remain / 5
-        else -> {
-            var x = remain / 3 + 1 // 3
-            var y = 0 // 5
-            var maxX = x
 
-            while (true) {
-                when {
-                    (maxX == 0) -> {
-                        if(ea==0){
-                            isValue = false
-                            break
-                        }
-
-                        ea--
-                        remain +=5
-                        x = remain / 3 +1
-                        y=0
-                        maxX = x
-                    }
-
-                    (x * 3 + y * 5 > remain) || (x == 0) -> {
-                        maxX--
-                        x = maxX
-                        y = 0
-                    }
-                    (x * 3 + y * 5 == remain) -> {
-                        ea += x + y
-                        break
-                    }
-                    else -> {
-                        x--
-                        y++
-                    }
-                }
+    while(true){
+        when{
+            (aIdx<9&& bIdx<9)->{
+               setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + if(bIdx>=0) b.substring(0,bIdx+1).toLong() else 0,0)
+                break
+            }
+            (aIdx<9&& bIdx>=9)->{
+                setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + b.substring(bIdx-9,bIdx+1).toLong(),1)
+                aIdx = -1
+                bIdx -= 10
+            }
+            (aIdx>=9&& bIdx<9)->{
+                setNum(a.substring(aIdx-9,aIdx+1).toLong() + if(bIdx>=0)b.substring(0,bIdx+1).toLong() else 0,1)
+                aIdx -= 10
+                bIdx = -1
+            }
+            (aIdx>=9&& bIdx>=9)->{
+                setNum(a.substring(aIdx-9,aIdx+1).toLong() + b.substring(bIdx-9,bIdx+1).toLong(),1)
+                aIdx -= 10
+                bIdx -= 10
             }
 
         }
     }
 
-    if (isValue)
-        bw.write("$ea\n")
-    else
-        bw.write("-1\n")
+
+
+
+
+    bw.write("$strBuilder\n")
 
     bw.flush()
     bw.close()
     br.close()
+
+
+}
+
+// 큰수 A+B 10757
+fun step0807(a: String, b:String):String{
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+
+   /* val token = StringTokenizer(br.readLine())
+
+    val a = token.nextToken().toString()
+    val b = token.nextToken().toString()*/
+
+    val strBuilder = StringBuilder()
+    /*   val strBuilder = StringBuilder()
+       val b = "98765432109876543210"
+       val a = "219876543210"*/
+
+    var aIdx = a.length -1
+    var bIdx = b.length -1
+    var up :Long = 0
+
+    fun setNum(num :Long,cmd :Int){
+        strBuilder.insert(0, if(strBuilder.isNotBlank()) up+num else num)
+        when(cmd){
+            1->{
+                up = (strBuilder[0]-48).toLong()
+                strBuilder.delete(0,1)
+            }
+        }
+    }
+
+
+    while(true){
+        when{
+            (aIdx<9&& bIdx<9)->{
+                setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + if(bIdx>=0) b.substring(0,bIdx+1).toLong() else 0,0)
+                break
+            }
+            (aIdx<9&& bIdx>=9)->{
+                setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + b.substring(bIdx-9,bIdx+1).toLong(),1)
+                aIdx = -1
+                bIdx -= 10
+            }
+            (aIdx>=9&& bIdx<9)->{
+                setNum(a.substring(aIdx-9,aIdx+1).toLong() + if(bIdx>=0)b.substring(0,bIdx+1).toLong() else 0,1)
+                aIdx -= 10
+                bIdx = -1
+            }
+            (aIdx>=9&& bIdx>=9)->{
+                setNum(a.substring(aIdx-9,aIdx+1).toLong() + b.substring(bIdx-9,bIdx+1).toLong(),1)
+                aIdx -= 10
+                bIdx -= 10
+            }
+
+        }
+    }
+
+
+
+
+    return strBuilder.toString()
+    //bw.write("$strBuilder\n")
+
+    bw.flush()
+    bw.close()
+    br.close()
+
 }
 
 
-
 // 부녀회장이 될테야 - 2775
-fun step0806(kg:Int):Int {
+fun step0806() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 

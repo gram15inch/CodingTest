@@ -7,22 +7,19 @@ import java.awt.event.InputEvent
 
 
 fun main() {
-    val rob = Robot()
-    var pt :PointerInfo
-  /*  while(true) {
-        rob.setAutoDelay(1000 * 1)
-        pt = MouseInfo.getPointerInfo()
-        println(pt.location)
-    }*/
-        for(n in 0..5){
-        rob.setAutoDelay(1000 * 1) // 1min
-        rob.mouseMove(150 + n * 300, 1 * 20)
-        rob.mousePress(InputEvent.BUTTON1_DOWN_MASK)
-        rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
-        }
-    println("end")
+   print("${getDigits(12345678)}")
 }
 
+fun getDigits(n :Long):Int{
+    var count =0
+    var num = n
+    while(num != 0.toLong())
+    {
+        num /= 10
+        count++
+    }
+    return count
+}
 fun timeCheck(){
     val beforeTime = System.currentTimeMillis() //코드 실행 전에 시간 받아오기
 
@@ -36,4 +33,20 @@ fun timeCheck(){
 
     println("시간차이(m) : $secDiffTime")
 
+}
+fun mouseTest(){
+    val rob = Robot()
+    var pt :PointerInfo
+    /*  while(true) {
+          rob.setAutoDelay(1000 * 1)
+          pt = MouseInfo.getPointerInfo()
+          println(pt.location)
+      }*/
+    for(n in 0..5){
+        rob.setAutoDelay(1000 * 1) // 1min
+        rob.mouseMove(150 + n * 300, 1 * 20)
+        rob.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+        rob.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+    }
+    println("end")
 }
