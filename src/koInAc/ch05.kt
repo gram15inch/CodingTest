@@ -108,13 +108,39 @@ fun localValue() {
 
     /* 궁금한사항
         Q1. 문제1은 람다를 넘겨줄뿐 호출 하지않는데 왜 반환한다음 호출이라고 한건지
-        Q2. Q1로 볼때 지역변수를 전역변수로 바꾼다고 해도 호출 하지 않음으로 같은데 그럼 언제 호출 하는걸 말하는지
+        Q2. Q1로 볼때 지역변수를 전역변수로 바꾼다고 해도 호출 하지 않음으로 같은데 언제 호출해야 달라지는지
         Q3. 만약 이후 함수 실행직후에 호출한다고 해도 함수안에서 지역변수 포획시 함수가 종료되어도 "clicks"가 살아있는데 이건 무었인지
     */
 }
 
+fun staticFun()=println("ref")
+const val staticVal = "staticVal"
+// 멤버 참조
+fun memberReference(){
+    val people = listOf(Person("Alice",29), Person("Bob",31))
+    people.maxByOrNull(Person::age) // {p:Person -> p.age} 로 변환가능 :: 에타변환
+    run(::staticFun) // 최상위에 선언된 함수나 프로퍼티 참조가능
+    run(::staticVal) // 함수인지 프로퍼티인지와 관계없이 괄호 x
+}
+fun sendEmail(p:Person,m:String){}
 
+fun runLambda(){
+// 람다가 인자가 여럿인 함수에게 작업을 위임
+    val action = {person:Person, message:String -> sendEmail(person,message) }
+// 람다 대신 멤버참조 이용
+    val nextAction = ::sendEmail
+// 확장 함수도 멤버참조 가능
+    fun Person.isAdult() = age >=21
+    val predicate = Person::isAdult
+// 바운드 멤버참조
+    val p = Person("Dmitri",34)
+    val personAgeFun = Person::age
+    personAgeFun(p) // 반드시 인스턴스 제공
 
+    val dmitriAgeFun = p::age // 코틀린 1.1 부터 사용가능
+    dmitriAgeFun() // 인스턴스가 함수안에  이미 들어가있음
+
+}
 
 
 
