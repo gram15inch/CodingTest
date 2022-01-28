@@ -132,15 +132,16 @@ fun runLambda(){
 // 확장 함수도 멤버참조 가능
     fun Person.isAdult() = age >=21
     val predicate = Person::isAdult
-// 바운드 멤버참조
+// 일반 멤버참조
     val p = Person("Dmitri",34)
     val personAgeFun = Person::age
     personAgeFun(p) // 반드시 인스턴스 제공
-
+// 바운드 멤버참조
     val dmitriAgeFun = p::age // 코틀린 1.1 부터 사용가능
-    dmitriAgeFun() // 인스턴스가 함수안에  이미 들어가있음
+    dmitriAgeFun() // 인스턴스가 함수안에 이미 들어가있음
 
 }
+
 
 
 
