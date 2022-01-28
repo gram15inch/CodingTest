@@ -15,7 +15,11 @@ interface Focusable{
 
 // 인터페이스 구현
 class Button : Clickable{
-    override fun click() = println("I was clicked ")
+    var ins : ()->Unit ={println("$this was clicked ")}
+    override fun click(){ ins() }
+    fun onClick(function: () -> Unit) {
+        ins = function
+    }
     // showOff() - 디폴트 메소드 호출
 }
 
@@ -36,7 +40,7 @@ open class RichButton : Clickable{ // open 으로 상속 가능하게 정의
     override fun click(){} // 오버라이드한 메소드는 기본으로 열려있음
 }
 
-// 152p
+// 152p - 이후 안함
 fun main() {
 
 }
