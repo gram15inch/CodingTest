@@ -32,5 +32,17 @@ fun groupByFirst(){
 }
 
 fun flatMapFlatten(){
-    
+    val people = listOf(Person("Alice",29), Person("Bob",31), Person("Carol",31))
+    val m : Map<Int, List<Person>> = people.groupBy { it.age }
+
+    // list(1), list(2) => list(3)
+    val new =m.flatMap { it.value }.toSet() // map 에서 value 만 모은다음 set 으로 만듬
+
+    val string = listOf("abc","def")
+    string.flatMap { it.toList() } // [a, b, c, d, e, f] :: 연산한 결과값이 다시 새원소
+    string.map { it.toList() } // [[a, b, c], [d, e, f]] :: 하나의 원소 안에서 어떠한 연산을 해도 하나의 원소
+
+}
+fun main() {
+    flatMapFlatten()
 }
