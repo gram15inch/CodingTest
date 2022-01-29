@@ -3,44 +3,34 @@ package koInAc
 // 243p
 
 // ch05로 가야함
-// 컬렉션 함수형 api
-// filter
-fun filterCollection(){
-    val people = listOf(Person("Alice",29), Person("Bob",31))
-    // 람다가 true 를 반환하는 원소만 모아 새로운 컬렉션을 만듬
-    // 원치않는 원소의 삭제만 가능
-    val newPeople = people.filter { it.age >=30} // {} : 술어(predicate)
-    println(newPeople)
-}
-// map
-fun mapCollection(){
-    val list = listOf(1,2,3,4)
-    // 원소의 변환 가능
-    val newList = list.map { it * it }
+// 217p - 1/29
+fun findAge(){
 
+    val canBeInClub27 = {p:Person -> p.age <= 27}
     val people = listOf(Person("Alice",29), Person("Bob",31))
-    // 사람 리스트에서 이름 리스트로 변경
-    val nameList = people.map{it.name}
-    val nameList2 = people.map(Person::name) // 멤버참조로 술어대체
-}
-// filter, map 활용
-fun filterMap(){
-    val people = listOf(Person("Alice",29), Person("Bob",31))
-    // 30살이상, 이름
-    val ageName = people.filter { it.age>=30 }.map(Person::name)
-    // 나이 최댓값, 이름                       // age 와 비교하기위해 맵번 max 값을 계산
-    val maxAgeName = people.filter{it.age == people.maxByOrNull(Person::age)!!.age}
-    val maxAge = people.maxByOrNull(Person::age)!!.age // max 를 한번만 계산
-    val name = people.filter { it.age == maxAge }  // age 와 비교
+// all
+    people.all(canBeInClub27) // 모든 원소가 조건을 만족하는지 :: = !any
+// any
+    people.any(canBeInClub27) // 원소중 하나라도 조건을 만족하는지 :: = !all
+// count
+    people.count(canBeInClub27) // 조건을 만족하는 원소의 개수
+    people.filter(canBeInClub27).size // 조건을 만족하는 원소들의 컬렉션을 생성 :: 비효율
+// find
+    people.find(canBeInClub27) //  조건을 만족하는 원소 하나(없으면 null)
+    people.firstOrNull(canBeInClub27) // null 이 나온다는 사실을 좀더 명확히 할때 쓰임
 
-// map 컬렉션은 key:value 별로 따로 filter, map 을 가짐
-    val numbers = mapOf(0 to "zero", 1 to "one")
-    numbers.mapValues { it.value.toUpperCase() }
-    numbers.filterValues { it.length >=4 }
-    numbers.mapKeys { it.key +1 }
-    numbers.filterKeys { it >= 1 }
+}
+fun groupByAge(){
+    val people = listOf(Person("Alice",29), Person("Bob",31), Person("Carol",31))
+    // groupBy
+    val m : Map<Int, List<Person>> = people.groupBy { it.age } // 조건에 맞는 원소들모아 특성과 함께 map 형태로 집어넣음
 }
 
-fun main() {
+fun groupByFirst(){
+    val list=  listOf("a","ab","b")
+    list.groupBy(String::first) // 문자열을 첫글자로 분류
+}
 
+fun flatMapFlatten(){
+    
 }
