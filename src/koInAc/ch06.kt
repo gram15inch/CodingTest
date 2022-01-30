@@ -1,48 +1,59 @@
 package koInAc
 
+import java.io.File
+
 // 243p
 
 // ch05로 가야함
-// 217p - 1/29
-fun findAge(){
 
-    val canBeInClub27 = {p:Person -> p.age <= 27}
-    val people = listOf(Person("Alice",29), Person("Bob",31))
-// all
-    people.all(canBeInClub27) // 모든 원소가 조건을 만족하는지 :: = !any
-// any
-    people.any(canBeInClub27) // 원소중 하나라도 조건을 만족하는지 :: = !all
-// count
-    people.count(canBeInClub27) // 조건을 만족하는 원소의 개수
-    people.filter(canBeInClub27).size // 조건을 만족하는 원소들의 컬렉션을 생성 :: 비효율
-// find
-    people.find(canBeInClub27) //  조건을 만족하는 원소 하나(없으면 null)
-    people.firstOrNull(canBeInClub27) // null 이 나온다는 사실을 좀더 명확히 할때 쓰임
-
-}
-fun groupByAge(){
+// 223p - 1/30
+// 지연 계산(lazy) 컬렉션 연산
+fun sequenceLazy(){
     val people = listOf(Person("Alice",29), Person("Bob",31), Person("Carol",31))
-    // groupBy
-    val m : Map<Int, List<Person>> = people.groupBy { it.age } // 조건에 맞는 원소들모아 특성과 함께 map 형태로 집어넣음
+    people.map(Person::name).filter{it.startsWith("A")} // map, filter 단계마다 임시 컬렉션 생성 :: 비효율
+// asSequence
+    val m =people.asSequence() // 중간컬렉션이 생기지 않음
+        .map(Person::name)
+        .filter{ it.startsWith("A") }
+        .toList() // sequence 는 연산과정의 나열일뿐 list 변환해야 결과값을 얻을수 있음
+// lazy
+    val n = listOf(1,2,3,4).asSequence() // 모든 원소에 대해 각각 map, find 연산을 한다
+        .map{ it*it } // 2*2
+        .find{ it>3 } // 2에서 결과가 나왔음으로 이후 연산을 하지않음
+}
+// map 과 filter 의 순서에 따른 비용 차이
+fun mapFilterOrder(){
+    val people = listOf(Person("Alice",29), Person("Bob",31), Person("Carol",31),Person("Dan",21))
+
+    people.asSequence()
+        .map(Person::name) // 조건에 상관없이 map 연산이 실행 : 비효율
+        .filter { it.length>4 }
+    people.asSequence()
+        .filter { it.name.length>4 } // 먼저 필터를 한후 참일때만 map 실행
+        .map(Person::name)
+
+}
+// 자연수의 시퀀스를 생성하고 사용하기 - 228p
+fun createSeq(){
+    val naturalNumber = generateSequence(0){it +1}
+    val numbersTo100 = naturalNumber.takeWhile { it<=100 }
+    val sum = numbersTo100.sum()
+
+// 상위 디렉터리의 시퀀스를 생성하고 사용하기
+    fun File.isInsideHiddenDirectory()= generateSequence(this){it.parentFile}.any{it.isHidden}
+    val file = File("/Users/svtk/.HiddenDir/a.txt")
+    file.isInsideHiddenDirectory()
+
+    fun isInsideHiddenLocal(file:File)= generateSequence(file){it.parentFile}.any{it.isHidden}
+    isInsideHiddenLocal(file)
+
+    /* 궁금한 사항
+        1. generateSequence() 는 왜 괄호뒤에 람다가 나오는지
+        2. 괄호 안에는 list 는 들어갈수 없는지
+        3. list 가 들어간다면     
+     */
 }
 
-fun groupByFirst(){
-    val list=  listOf("a","ab","b")
-    list.groupBy(String::first) // 문자열을 첫글자로 분류
-}
-
-fun flatMapFlatten(){
-    val people = listOf(Person("Alice",29), Person("Bob",31), Person("Carol",31))
-    val m : Map<Int, List<Person>> = people.groupBy { it.age }
-
-    // list(1), list(2) => list(3)
-    val new =m.flatMap { it.value }.toSet() // map 에서 value 만 모은다음 set 으로 만듬
-
-    val string = listOf("abc","def")
-    string.flatMap { it.toList() } // [a, b, c, d, e, f] :: 연산한 결과값이 다시 새원소
-    string.map { it.toList() } // [[a, b, c], [d, e, f]] :: 하나의 원소 안에서 어떠한 연산을 해도 하나의 원소
-
-}
 fun main() {
-    flatMapFlatten()
+    mapFilterOrder()
 }
