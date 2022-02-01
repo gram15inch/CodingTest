@@ -1,6 +1,6 @@
-package koInAc.ch06;
+package koInAc.ch05;
 
-public class Button06 {
+public class Button05 {
     public void setOnclickListener(OnclickListener l){}
     public void run(){
         setOnclickListener(new OnclickListener() {
