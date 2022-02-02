@@ -1,5 +1,6 @@
 package koInAc
 
+import koInAc.ch06.PersonJA
 import java.awt.event.ActionEvent
 import java.lang.IllegalArgumentException
 import javax.swing.AbstractAction
@@ -128,8 +129,73 @@ fun letNullCheck(){
 
 // 널이 될 수 있는 타입 확장
 
+// null 이 될 수 있는 수신객체에 대해 확장 함수 호출하기
+fun verifyUserInput(input:String?){
+    if(input.isNullOrBlank()){ // 안전한 호출을 하지 않앗음
+        println("Please fill in the required fields")
+    }
+    // let 은 수신객체에 null 체크를 하지않음
+ val person :PersonEmail? =  getPerson()
+    person?.let { sendEmailTo(it.email) }
+}
+// 확장함수는 본문 안에서 null 가능 수신객체의 널체크를 할 수 있음
+// 위 객체의 this 는 제일먼저 null 체크를 해야함
+
+fun String?.isNullOrBlank():Boolean = this == null || this.isBlank() // 같은줄이라도 || 앞에서 null 검사를 했으면 뒷부분은 뒤부분은 필요없음
+
+//  타입 파라미터의 null 가능성
+// null 이 될 수 있는 타입 파라미터 다루기
+fun <T> printHashCode(t:T){
+    println(t?.hashCode()) // t 가 null 이 될 수 있음으로 안전한 호출을 써야함
+    // T 의 타입은 Any? 로 추론
+
+}
+// 타입 파라미터에 대해 널이 될 수 없는 상한을 사용하기
+fun <T:Any>printHAshCodeAny(t:T){ // 타입 파라미터를 Any 타입으로 설정
+    println(t.hashCode())
+}
+
+/* 플랫폼 타입
+    1. 코틀린이 널 관련 정보를 알 수 없는 타입
+    2. 자바도 에너테이션을 통해 널 관련 정보를 알 수있음
+
+* 자바 *
+// null 가능성 에너태이션이 없는 자바 클래스
+public class PersonJA {
+    private final String name;
+    public PersonJA(String name){
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+*/
+
+// null 검사 업이 자바 클래스 접근하기
+fun yellAt(person: PersonJA){
+    println(person.name.toUpperCase() + "!!!")
+}
+// null 검사 통해 자바 클래스 접근하기
+fun yellAtSafe(person: PersonJA){ // 호출 시점에 null 여부 검사
+    println((person.name ?:"Anyone").toUpperCase() + "!!!")
+}
+fun callJava(){
+    // yellAt(PersonJA(null)) // person.name 이 null 이지만 경고가 없음
+    // NullPointerException 발생
+    yellAtSafe(PersonJA(null)) // 예외 업음
+}
+// 코틀린 컴파일러는 함수 호출시 null 가능 파라미터에 널 검사를 자동으로 해준다
+// 이 때문에 파라미터의 실행시가 아니라 함수의 호출시점에 바로 null 여부를 알 수있다
+
+// 플랫폼 타입의 이유 :: 코틀린에서 자바의 프로퍼티에 접근시 모두 null 가능 타입으로 간주하지 않는 이유
+// ArrayList<String?> 처럼 접근시마다 null 체크를 한다면 검사에 드는 비용이 너무 커지기 때문
+
+// 플랫폼 타입은 선언 할순 없지만 출력시 보여지는 타입은 존재함 :: type!
+// 자바에서 가져온 프로퍼티를 잘못대입하면 실행시점에 오류가 생겨 곤란해 질 수 있음
+
 
 fun main() {
-
 
 }
