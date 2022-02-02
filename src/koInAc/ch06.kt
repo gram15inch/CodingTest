@@ -1,4 +1,4 @@
-package koInAc.ch06
+package koInAc
 
 import java.awt.event.ActionEvent
 import java.lang.IllegalArgumentException
@@ -51,7 +51,7 @@ fun Person.countryName():String{
 fun strLenSafeElvis(s:String?):Int = s?.length ?:0 // Type? 으로 받았으니 Type 으로 반환
 
 // throw 와 엘비스 연사나 함께 사용하기
-fun printShippingLabel(person:Person){
+fun printShippingLabel(person: Person){
     val address = person.company?.address
         ?: throw IllegalArgumentException("No address")
     with(address){
@@ -94,14 +94,41 @@ class CopyRowAction(val list: JList<String>): AbstractAction(){
         val value = list.selectedValue!!
     }
 }
-
-fun sendEmailTo(email: String){}
+// 258p - 2/2
+fun sendEmailTo(email: String){println("Sending email to $email")}
 fun letCheck(){
     val email: String? = ""
     // sendEmailTo(email) // 불가능
     if(email!=null) sendEmailTo(email)
+
+    email?.let{email-> // email null 이면 람다를 실행 하지 않음
+        sendEmailTo(email)
+    }  // 아무것도 반환하지 않음
+
+
+    var emailVar:String? = "yole@example.com"
+    emailVar?.let { sendEmailTo(it) }
+    emailVar = null
+    emailVar?.let{ sendEmailTo(it) }
+
 }
-//  258p
+class PersonEmail(){ var email ="email contents" }
+fun getPerson(): PersonEmail? = PersonEmail()
+fun letNullCheck(){
+    val person = getPerson()
+    if(person != null) sendEmailTo(person.email)
+// 변수를 만들지 않고 let 으로 바로 실행하기
+    getPerson()?.let { sendEmailTo(it.email) } // person 을 만들지 않음
+}
+
+ /* 나중에 초기화할 프로퍼티 - CH06Test.kt 에 있음
+ 1. 널아님 단언을 사용해 null 이 될 수 있는 프로퍼티 접근하기
+ 2. 나중에 초기화하는 프로퍼티 사용하기
+*/
+
+// 널이 될 수 있는 타입 확장
+
+
 fun main() {
 
 
