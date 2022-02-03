@@ -1,6 +1,11 @@
 package koInAc.ch07
 
 import koInAc.ch06.StringProcessor
+import java.io.BufferedReader
+import java.io.StringReader
+import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
+import java.lang.NumberFormatException
 
 // ch06으로 옮겨야함
 
@@ -82,8 +87,115 @@ fun useAny(){ // Any :: Object
 }
 
 // Unit 타입 : 코틀린의 void
+// 인스턴스의 차이가 void 와 Unit 을 구분지음 :: 함수형 프로그래밍에서 Unit 은 전통적으로 하나의 인스턴스만을 갖는 타입을 의미
+interface Processor<T>{ // Unit 은 일반적인 기능을 갖는 일반적인 타입 :: 제네릭 파라미터의 인자로 사용가능
+    fun process():T // 반환값이 제네렉 파라미터일 경우 오버라이드한 함수가 반환을 하지않아도 자동으로 Unit 이 반환 됨
+}
+class NoResultProcessor: Processor<Unit>{
+    override fun process() {
+        // T 를 반환해야 하지만 Unit 이므로 자동으로 묵시적 반횐됨
+    }
+}
+// Nothing
+// 이 타입을 반환 하는 함수는 결코 정상적으로 끝나지 않음을 나타냄
+fun fail(message:String): Nothing{
+    throw IllegalStateException(message) // 무조건 예외 발생
+}
+fun callNull():String?{
+    return null
+}
+
+fun callNoting(){
+    //fail("Error occurred")
+    val not :Nothing // 아무것도 저장할 수 없음
+       val a = callNull() ?: fail("No address") // 엘비스 연산자를 통해 전제조건을 검사 할 수 있음
+    println(a)
+}
 
 
+// 컬렉션과 배열
+// 널 가능성과 컬렉션
+// 널이 될 수 있는 값으로 이뤄진 컬렉션 만들기
+fun readNumbers(reader: BufferedReader):List<Int?>{
+    val result = ArrayList<Int?>() // 널이 될 수 있는 Int 값으로  이뤄진 리스트
+    for (line in reader.lineSequence()){
+        try{
+            val number = line.toInt()
+            result.add(number) // 널이아닌 값을 리스트에 추가
+        }
+        catch (e:NumberFormatException){
+            result.add(null) // 현재 줄을 파싱할 수 없으므로 리스트에 널 추가
+        }
+    }
+    return  result
+}
+// List<Int?> : 원소가 null 가능
+// List<Int>? : 리스트가 null 가능
+
+// null 이 될 수 있는 값으로 이뤄진 컬렉션 다루기
+fun addValidNumbers(numbers: List<Int?>){
+    var sumOfValidNumbers = 0
+    var invalidNumbers = 0
+    for (number in numbers)
+        if(number != null)
+            sumOfValidNumbers +=number
+        else
+            invalidNumbers++
+    println("Sum of Valid numbers: $sumOfValidNumbers")
+    println("Invalid numbers: $invalidNumbers")
+
+}
+// filterNotNull을 null 이 될 수 있는 값으로 이뤄진 컬렉션에 대해 사용하기
+// 컬렉션으로 널 값을 걸러내는 경우가 자주 있어 코틀린 라이브러리에서 지원
+fun addValidNumbersFilter(numbers: List<Int?>){
+    val validNumbers = numbers.filterNotNull() // 컬렉션안에 null 이 들어있지 않음을 보장 :: type? => type
+    println("Sum of valid numbers: ${validNumbers.sum()}")
+    println("Invalid numbers: ${numbers.size - validNumbers.size}")
+}
+fun useNullableCOl(){
+    val reader = BufferedReader(StringReader("1\nabc\n42"))
+    val numbers = readNumbers(reader)
+    addValidNumbers(numbers)
+    addValidNumbersFilter(numbers)
+}
+
+// 읽기 전용과 변경 가능한 컬렉션 인터페이스
+fun <T>copyElements(source:Collection<T>,
+                    target:MutableCollection<T>) {
+    for (item in source)
+        target.add(item)
+}
+fun useCopyElements(){
+    val source: Collection<Int> = arrayListOf(3,5,7)
+    val target: MutableCollection<Int> = arrayListOf(1)
+    // val target: Collection<Int> = arrayListOf(1) // 읽기전용을 변경가능에 넣을경우 컴파일오류
+    copyElements(source,target)
+    println(target)
+
+
+}
+
+fun useSameSource(){
+    val s = arrayListOf(3,5,7) // 하나의 인스턴스
+
+    // 같은 인스턴스 참조
+    val c: Collection<Int> = s // 읽기전용 컬렉션 인터페이스
+    val m: MutableCollection<Int> = s // 변경가능 컬렉션 인터페이스
+
+    c.map{print(it)}.run { println("") } // 357
+    m.remove(3) // 변경가능 컬렉션만 수정
+    c.map{print(it)}.run { println("") } // 57
+
+}
+
+/*
+    1. 읽기전용 컬렉션이 꼭 변경 불가능한 컬렉션일 필요는 없다
+    2. 같은 인스턴스를 가리키는 변경 가능한 인터페이스 타입의 참조도 있을 수 있다.
+    3. 읽기 전용 컬렉션이 항상 "스레드 안전" 하지는 않다.
+*/
+
+// 코틀린 컬렉션과 자바
+// 290p
 fun main() {
 
 }
