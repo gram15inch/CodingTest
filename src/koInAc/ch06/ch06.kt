@@ -131,7 +131,7 @@ fun letNullCheck(){
 
 // null 이 될 수 있는 수신객체에 대해 확장 함수 호출하기
 fun verifyUserInput(input:String?){
-    if(input.isNullOrBlank()){ // 안전한 호출을 하지 않앗음
+    if(input.isNullOrBlank()){ // 안전한 호출을 하지 않았음
         println("Please fill in the required fields")
     }
     // let 은 수신객체에 null 체크를 하지않음
@@ -148,7 +148,6 @@ fun String?.isNullOrBlank():Boolean = this == null || this.isBlank() // 같은�
 fun <T> printHashCode(t:T){
     println(t?.hashCode()) // t 가 null 이 될 수 있음으로 안전한 호출을 써야함
     // T 의 타입은 Any? 로 추론
-
 }
 // 타입 파라미터에 대해 널이 될 수 없는 상한을 사용하기
 fun <T:Any>printHAshCodeAny(t:T){ // 타입 파라미터를 Any 타입으로 설정
@@ -157,7 +156,7 @@ fun <T:Any>printHAshCodeAny(t:T){ // 타입 파라미터를 Any 타입으로 설
 
 /* 플랫폼 타입
     1. 코틀린이 널 관련 정보를 알 수 없는 타입
-    2. 자바도 에너테이션을 통해 널 관련 정보를 알 수있음
+    2. 자바도 에너테이션을 통해 널 관련 정보를 알 수 있음
 
 * 자바 *
 // null 가능성 에너태이션이 없는 자바 클래스
