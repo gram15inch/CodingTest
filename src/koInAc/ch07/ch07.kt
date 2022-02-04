@@ -2,6 +2,7 @@ package koInAc.ch07
 
 import koInAc.ch06.StringProcessor
 import java.io.BufferedReader
+import java.io.File
 import java.io.StringReader
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
@@ -195,7 +196,109 @@ fun useSameSource(){
 */
 
 // 코틀린 컬렉션과 자바
-// 290p
-fun main() {
+/* 자바 코드 CollectionUtils.java
+    public class CollectionUtils {
+        public static List<String> uppercaseAll(List<String> items){
+            for(int i = 0; i< items.size();i++)
+                items.set(i,items.get(i).toUpperCase());
+            return items;
+        }
+    }
+ */
+// 코틀린 컬렉션을 자바 함수 인자로 넘기기
+fun printInUppercase(list:List<String>){ // 읽기 전용 파라미터를 선언
+    println(CollectionUtils.uppercaseAll(list)) // 자바 함수라 읽기전용 컬렉션을 수정 가능하게함
+    println(list.first()) // 컬렉션이 변경됐는지 확인
+    // 자바 함수에서 변경 뿐만 아니라 null 도 넣을 수 있어 위의경우 주의가 필요함
+}
+fun usePrintInUppercase(){
+    val list = listOf("a","b","c")
+    printInUppercase(list)
+    // list.add  // 변경 불가능한 컬렉션
+    // list.remove
+}
 
+// 컬렉션을 플랫폼 타입으로 다루기
+// 컬렉션 파라미터가 있는 자바 인터페이스 - FileContentsProcessor.java
+// 위 인터페이스를 코틀린으로 구현
+class FileIndexer : FileContentProcessor{
+    override fun processContents(path: File?,
+                                 binaryContents: ByteArray?, // 1
+                                 textContents: List<String>?) { // 1,2,3
+    }
+    /* 설계조건
+        1. 일부파일은 이진파일 이므로 텍스트로 표시 할 수 없어 리스트는 널 가능
+        2. 파일의 각줄은 널일 수 없으므로 리스트의 원소는 널이 될 수 없다
+        3. 이 리스트는 파일의 내용표현만 하면 됨으로 읽기전용 이다.
+    */
+
+}
+// 컬렉션 파라미터가 있는 자바인터페이스2 - dataParser.java
+/*
+    public interface DataParser<T> {
+        void parseData(String input,
+                       List<T> output, // 1
+                       List<String> errors); // 22
+    }
+
+*/
+// 위 인터페이스를 코을린으로 구현
+class PersonParser : DataParser<Person>{
+    override fun parseData(input: String,
+                           output: MutableList<Person>,
+                           errors: MutableList<String?>) {
+    }
+    /* 설계조건
+        1. 호출하는 쪽에서 항상 오류메세지를 받아야 하므로 List<String>은 널이 되면 안된다.
+        2. errors 의 원소는 널이 될 수도 있다.
+        3. output 에 들어가는 정보를 파싱하는 과정에서 오류가 발생하지 않으면
+         그 정보와 연관된 오류 메세지는 널이다.
+        4. 구현 코드에서 원소를 추가할 수 있어야 하므로 List<String> 은 변경 가능해야 한다.
+    */
+}
+
+// 객체의 배열과 원시 타입의 배열
+// 배열 사용하기
+fun useArray(args: Array<String>){
+    for(i in args.indices) // 배열의 인덱스 값의 범위에 대해 이터레이션 하기
+        println("Argument $i is: ${args[i]}") // i 로 배열원소에 접근
+// 알파벳으로 이뤄진 배열 만들기
+    val letters = Array<String>(26){i -> ('a'+i).toString() }
+    println(letters.joinToString(""))
+    val strings = listOf("a","b","c")
+    println("%s/%s/%s".format(*strings.toTypedArray()))
+
+// 컬렉션을 vararg 메소드에게 넘기기
+    println("%s/%s/%s".format(*strings.toTypedArray())) // vararg 인자를 넘기기위해 스프레드(*) 연사나 사용
+
+}
+// Array<Int> 같으 경우 Int 가 Integer 로 감싸진 배열을 저장한다
+// 원시타입을 배열로 저장 하고싶다면 원시타입 배열 메소드를 사용 해야한다.
+// ByteArray, CharArray, BooleanArray  :: 박싱하지 않음
+// => byte[], char[], Boolean[]
+
+// 원시타입 배열 생성 방법
+fun makeArray(){
+    // 인자로 사이즈만 받고 값은 디폴트(0) 값으로 초기화
+    val fiveZeros = IntArray(5)
+
+    // 인자로 값들을 가변인자로 받아서 초기화
+    val fiveZeroToo = intArrayOf(0,0,0,0,0)
+
+    // 인자로 크기와 람다를 인자로 받아 초기화
+    val squares = IntArray(5){i ->(i+1)*(i+1)}
+    println(squares.joinToString())
+
+    // 기존 컬렉션에 toIntArray 등의 변환 함수 사용
+    Array<Int>(1){0}.toIntArray()
+}
+
+// 배열에 forEachIndexed 사용하기
+fun useForEachIdx(args: Array<String>){
+    args.forEachIndexed{index, element ->
+        println("Argument $index is: $element")
+    }
+}
+fun main() {
+    useArray(Array(0){""})
 }
