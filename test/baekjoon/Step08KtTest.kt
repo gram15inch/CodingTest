@@ -14,10 +14,6 @@ internal class Step08KtTest {
         val b = StringBuilder()
 
 
-        for(n in 1..10000){
-            b.append(9)
-            assertEquals(ex0807(a,b.toString()),step0807(a,b.toString()),"num :${n}")
-        }
 
     }
 

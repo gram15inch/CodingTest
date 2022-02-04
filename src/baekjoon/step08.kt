@@ -9,143 +9,24 @@ import java.util.*
 
 
 fun main() {
-    val br = BufferedReader(InputStreamReader(System.`in`))
-    val bw = BufferedWriter(OutputStreamWriter(System.out))
-
-/*
-
-    val token = StringTokenizer(br.readLine())
-
-    val strBuilder = StringBuilder()
-
-    val a = token.nextToken().toString()
-    val b = token.nextToken().toString()
-*/
-
-    val strBuilder = StringBuilder()
-    val b = "99999999999999999919"
-    val a = "1"
-
-    var aIdx = a.length -1
-    var bIdx = b.length -1
-    var up :Long = 0
-
-
-    fun setNum(num :Long,cmd :Int){
-        strBuilder.insert(0, if(strBuilder.isNotBlank()) up+num else num)
-        when(cmd){
-            1->{
-                up = (strBuilder[0]-48).toLong()
-                strBuilder.delete(0,1)
-            }
-        }
-    }
-
-
-    while(true){
-        when{
-            (aIdx<9&& bIdx<9)->{
-               setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + if(bIdx>=0) b.substring(0,bIdx+1).toLong() else 0,0)
-                break
-            }
-            (aIdx<9&& bIdx>=9)->{
-                setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + b.substring(bIdx-9,bIdx+1).toLong(),1)
-                aIdx = -1
-                bIdx -= 10
-            }
-            (aIdx>=9&& bIdx<9)->{
-                setNum(a.substring(aIdx-9,aIdx+1).toLong() + if(bIdx>=0)b.substring(0,bIdx+1).toLong() else 0,1)
-                aIdx -= 10
-                bIdx = -1
-            }
-            (aIdx>=9&& bIdx>=9)->{
-                setNum(a.substring(aIdx-9,aIdx+1).toLong() + b.substring(bIdx-9,bIdx+1).toLong(),1)
-                aIdx -= 10
-                bIdx -= 10
-            }
-
-        }
-    }
-
-
-
-
-
-    bw.write("$strBuilder\n")
-
-    bw.flush()
-    bw.close()
-    br.close()
-
 
 }
 
+
+
 // 큰수 A+B 10757
-fun step0807(a: String, b:String):String{
+fun step0807(){
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
 
-   /* val token = StringTokenizer(br.readLine())
+    val token = StringTokenizer(br.readLine())
 
-    val a = token.nextToken().toString()
-    val b = token.nextToken().toString()*/
-
-    val strBuilder = StringBuilder()
-    /*   val strBuilder = StringBuilder()
-       val b = "98765432109876543210"
-       val a = "219876543210"*/
-
-    var aIdx = a.length -1
-    var bIdx = b.length -1
-    var up :Long = 0
-
-    fun setNum(num :Long,cmd :Int){
-        strBuilder.insert(0, if(strBuilder.isNotBlank()) up+num else num)
-        when(cmd){
-            1->{
-                up = (strBuilder[0]-48).toLong()
-                strBuilder.delete(0,1)
-            }
-        }
-    }
-
-
-    while(true){
-        when{
-            (aIdx<9&& bIdx<9)->{
-                setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + if(bIdx>=0) b.substring(0,bIdx+1).toLong() else 0,0)
-                break
-            }
-            (aIdx<9&& bIdx>=9)->{
-                setNum( (if(aIdx>=0) a.substring(0,aIdx+1).toLong() else 0) + b.substring(bIdx-9,bIdx+1).toLong(),1)
-                aIdx = -1
-                bIdx -= 10
-            }
-            (aIdx>=9&& bIdx<9)->{
-                setNum(a.substring(aIdx-9,aIdx+1).toLong() + if(bIdx>=0)b.substring(0,bIdx+1).toLong() else 0,1)
-                aIdx -= 10
-                bIdx = -1
-            }
-            (aIdx>=9&& bIdx>=9)->{
-                setNum(a.substring(aIdx-9,aIdx+1).toLong() + b.substring(bIdx-9,bIdx+1).toLong(),1)
-                aIdx -= 10
-                bIdx -= 10
-            }
-
-        }
-    }
-
-
-
-
-    return strBuilder.toString()
-    //bw.write("$strBuilder\n")
+    bw.write("${token.nextToken().toBigDecimal().add(token.nextToken().toString().toBigDecimal())}")
 
     bw.flush()
     bw.close()
     br.close()
-
 }
 
 
