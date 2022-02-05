@@ -1,14 +1,14 @@
 package spring.java;
 
-import spring.DBinfo;
 
-import java.io.Reader;
+import spring.java.dao.UserDao;
+import spring.java.domain.User;
 import java.sql.SQLException;
-import java.util.Properties;
+
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-      /*  UserDao dao = new UserDao();
+        UserDao dao = new UserDao();
         User user = new User();
         user.setId("whiteship");
         user.setName("백기선");
@@ -17,10 +17,8 @@ public class Main {
 
         System.out.println(user.getId());
         User user2 = dao.get(user.getId());
-        System.out.println(user2.getName());*/
+        System.out.println(user2.getName());
 
 
-
-        System.out.println(DBinfo.USERNAME);
     }
 }

@@ -2,6 +2,7 @@ package spring.java.dao;
 
 
 
+import spring.DBinfo;
 import spring.java.domain.User;
 
 import java.sql.Connection;
@@ -14,13 +15,11 @@ import java.util.Properties;
 
 public class UserDao {
     Properties prop = new Properties();
-
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection c = DriverManager.getConnection(
-                prop.getProperty("spring.datasource.url"),
-                prop.getProperty("spring.datasource.username"),
-                prop.getProperty("spring.datasource.password"));
-
+                DBinfo.URL,
+                DBinfo.USERNAME,
+                DBinfo.PASSWORD);
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
@@ -36,9 +35,9 @@ public class UserDao {
 
     public User get(String id) throws ClassNotFoundException, SQLException {
         Connection c = DriverManager.getConnection(
-                prop.getProperty("spring.datasource.url"),
-                prop.getProperty("spring.datasource.username"),
-                prop.getProperty("spring.datasource.password"));
+                DBinfo.URL,
+                DBinfo.USERNAME,
+                DBinfo.PASSWORD);
         PreparedStatement ps = c
                 .prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
