@@ -10,26 +10,14 @@ internal class Step08KtTest {
     @Test
     fun test1() {
 
-        val a = "9999999999999999999999999999999999"
-        val b = StringBuilder()
+        val a = 1
+        val b = 100
 
-
+        assertEquals(ex0902().run(1,2).key, Pair(1,2).first)
+        assertEquals(ex0902().run(1,2).value, Pair(1,2).second)
 
     }
 
 
 }
 
-fun ex0807(a:String, b:String) = "$a $b"
-    .split(" ")
-    .map { it.toBigDecimal() }
-    .reduce { acc, i -> acc + i }
-
-
-fun ex0806(input : Int):Int{
-    var bag = input / 5
-    while ((input - bag * 5) % 3 > 0 && bag >= 0) {
-        --bag
-    }
-    return if (bag < 0) -1 else (input - bag * 5) / 3 + bag
-}
