@@ -1,22 +1,25 @@
-package spring.Java.dao;
+package spring.java.dao;
 
 
 
-import spring.Java.domain.User;
+import spring.java.domain.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Properties;
 
 
 public class UserDao {
+    Properties prop = new Properties();
+
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/springbook?characterEncoding=UTF-8", "spring",
-                "book");
+        Connection c = DriverManager.getConnection(
+                prop.getProperty("spring.datasource.url"),
+                prop.getProperty("spring.datasource.username"),
+                prop.getProperty("spring.datasource.password"));
 
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id, name, password) values(?,?,?)");
@@ -32,9 +35,10 @@ public class UserDao {
 
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost/springbook?characterEncoding=UTF-8", "spring",
-                "book");
+        Connection c = DriverManager.getConnection(
+                prop.getProperty("spring.datasource.url"),
+                prop.getProperty("spring.datasource.username"),
+                prop.getProperty("spring.datasource.password"));
         PreparedStatement ps = c
                 .prepareStatement("select * from users where id = ?");
         ps.setString(1, id);

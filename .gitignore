@@ -24,4 +24,5 @@ hs_err_pid*
 
 #db
 src/spring/common.properties
+src/spring/DBinfo.java
 
