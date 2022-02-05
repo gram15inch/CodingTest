@@ -22,7 +22,7 @@ fun step0901(){
 
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-    var sum =0
+    var sum = 0
     br.readLine().toInt().run{
         val token = StringTokenizer(br.readLine())
 
