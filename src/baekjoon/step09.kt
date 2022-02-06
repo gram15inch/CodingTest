@@ -8,24 +8,15 @@ import java.util.*
 
 
 fun main() {
-
     val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-    var sum = 0
-    val primes :MutableCollection<Int> = arrayListOf(0)
-    br.readLine().toInt().run{
-        for(n in this.. br.readLine().toInt()){
+    val token = StringTokenizer(br.readLine())
+    token.nextToken().toInt().run{
+        for(n in this.. token.nextToken().toInt()){
             if(getPrimeNumber(n))
-                primes.add(n)
+                bw.write("$n\n")
         }
     }
-
-    primes.filter { it>0 }.run {
-        if(this.isEmpty())
-            bw.write("-1")
-        else
-        bw.write("${this.sum()}\n${this.minByOrNull { it }}") }
-
 
     bw.flush()
     bw.close()
@@ -46,6 +37,35 @@ inline fun getPrimeNumber(i:Int):Boolean{
     return true
 }
 
+
+
+// 소인2 - 2581 - s2
+fun step0904(){}
+
+// 소인수분해 - 11653
+fun step0903(){
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+    var sum = 0
+    br.readLine().toInt().run{
+        sum = this
+        while(true) {
+            if (1 == sum) {
+                bw.flush()
+                bw.close()
+                br.close()
+                break
+            }
+            for (n in 2..this) {
+                if (sum % n == 0) {
+                    bw.write("${n}\n")
+                    sum /= n
+                    break
+                }
+            }
+        }
+    }
+}
 // 소수 - 2581
 fun step0902(a :Int,b:Int):Pair<Int,Int>{
 
