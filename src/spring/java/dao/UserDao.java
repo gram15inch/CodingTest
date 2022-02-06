@@ -10,16 +10,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 
 public class UserDao {
-    Properties prop = new Properties();
+
+    private DConnectionMaker connectionMaker ;
+    public UserDao(){
+        connectionMaker  = new DConnectionMaker();
+    }
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = DriverManager.getConnection(
-                DBinfo.URL,
-                DBinfo.USERNAME,
-                DBinfo.PASSWORD);
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
@@ -32,12 +32,8 @@ public class UserDao {
         c.close();
     }
 
-
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection c = DriverManager.getConnection(
-                DBinfo.URL,
-                DBinfo.USERNAME,
-                DBinfo.PASSWORD);
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c
                 .prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
@@ -56,4 +52,44 @@ public class UserDao {
         return user;
     }
 
+
 }
+
+interface ConnectionMaker{
+    public Connection makeConnection() throws ClassNotFoundException, SQLException;
+}
+
+
+class DConnectionMaker implements  ConnectionMaker{
+    public Connection makeConnection() throws ClassNotFoundException, SQLException{
+        Connection c = DriverManager.getConnection(
+                DBinfo.URL,
+                DBinfo.USERNAME,
+                DBinfo.PASSWORD);
+        return c;
+    }
+}
+
+
+
+class NUserDao extends UserDao{
+    public Connection getConnection() throws ClassNotFoundException, SQLException{
+        Connection c = DriverManager.getConnection(
+                DBinfo.URL,
+                DBinfo.USERNAME,
+                DBinfo.PASSWORD);
+        return c;
+    }
+}
+
+class DUserDao extends UserDao{
+    public Connection getConnection() throws ClassNotFoundException, SQLException{
+        Connection c = DriverManager.getConnection(
+                DBinfo.URL,
+                DBinfo.USERNAME,
+                DBinfo.PASSWORD);
+        return c;
+    }
+}
+
+
