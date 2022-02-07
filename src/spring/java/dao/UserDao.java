@@ -14,9 +14,9 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    private DConnectionMaker connectionMaker ;
-    public UserDao(){
-        connectionMaker  = new DConnectionMaker();
+    private ConnectionMaker connectionMaker ;
+    public UserDao(ConnectionMaker connectionMaker){
+        this.connectionMaker  = connectionMaker;
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection c = connectionMaker.makeConnection();
@@ -71,25 +71,5 @@ class DConnectionMaker implements  ConnectionMaker{
 }
 
 
-
-class NUserDao extends UserDao{
-    public Connection getConnection() throws ClassNotFoundException, SQLException{
-        Connection c = DriverManager.getConnection(
-                DBinfo.URL,
-                DBinfo.USERNAME,
-                DBinfo.PASSWORD);
-        return c;
-    }
-}
-
-class DUserDao extends UserDao{
-    public Connection getConnection() throws ClassNotFoundException, SQLException{
-        Connection c = DriverManager.getConnection(
-                DBinfo.URL,
-                DBinfo.USERNAME,
-                DBinfo.PASSWORD);
-        return c;
-    }
-}
 
 
