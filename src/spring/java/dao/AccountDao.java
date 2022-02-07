@@ -1,21 +1,16 @@
 package spring.java.dao;
 
-
-
-import spring.DBinfo;
 import spring.java.domain.User;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-public class UserDao {
+public class AccountDao {
 
     private ConnectionMaker connectionMaker ;
-    public UserDao(ConnectionMaker connectionMaker){
+    public AccountDao(ConnectionMaker connectionMaker){
         this.connectionMaker  = connectionMaker;
     }
     public void add(User user) throws ClassNotFoundException, SQLException {
@@ -54,19 +49,3 @@ public class UserDao {
 
 
 }
-
-interface ConnectionMaker{
-    public Connection makeConnection() throws ClassNotFoundException, SQLException;
-}
-
-
-class DConnectionMaker implements  ConnectionMaker{
-    public Connection makeConnection() throws ClassNotFoundException, SQLException{
-        Connection c = DriverManager.getConnection(
-                DBinfo.URL,
-                DBinfo.USERNAME,
-                DBinfo.PASSWORD);
-        return c;
-    }
-}
-
