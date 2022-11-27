@@ -8,7 +8,7 @@ import java.util.*
 
 
 fun main() {
-  /*  val br = BufferedReader(InputStreamReader(System.`in`))
+    val br = BufferedReader(InputStreamReader(System.`in`))
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val token = StringTokenizer(br.readLine())
     token.nextToken().toInt().run{
@@ -20,9 +20,7 @@ fun main() {
 
     bw.flush()
     bw.close()
-    br.close()*/
-    println("Hi")
-
+    br.close()
 }
 
 
