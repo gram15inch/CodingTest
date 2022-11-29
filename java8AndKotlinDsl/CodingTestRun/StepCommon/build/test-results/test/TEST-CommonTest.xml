@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CommonTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-29T02:31:22" hostname="DESKTOP-7JMUG81" time="0.033">
+  <properties/>
+  <testcase name="primeFactorizationFirstLine()" classname="CommonTest" time="0.033"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

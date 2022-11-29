@@ -5,8 +5,6 @@ import java.util.*
 
 class CommonTest {
 
-
-
     @Test
     fun getCharInToken(){
         val value ="a b"
@@ -57,17 +55,33 @@ class CommonTest {
             Assertions.assertEquals("4 8", numberOfChar('b', 'c', valueArray))
 
     }
-
-
-
-    fun createValueList():List<String>{
-        val values = mutableListOf<String>()
-        values.add(
-            """ a b
-                aaaaaabbb
-                bcccccccc
-            """.trimMargin()
+    @Test  /* 첫행의 글자의 갯수 */
+    fun primeFactorizationFirstLine(){
+        val values = listOf(
+            Pair("3","3"),
+            Pair("6","2\n3"),
+            Pair("2","2"),
+            Pair("9991","97\n103"),
         )
-        return values
+
+            for(value in values){
+                val tokensInput = StringTokenizer(value.first)
+                val valueInt = tokensInput.nextToken().toInt()
+                val tokensOutput = StringTokenizer(value.second)
+
+                var idx = 0
+                primeFactorization(valueInt)
+                    .also { results->
+                        while(tokensOutput.hasMoreTokens()){
+                            Assertions.assertEquals(tokensOutput.nextToken(), results.get(idx++)?:"null")
+                        }
+                }
+
+
+            }
+
+
     }
+
+
 }
