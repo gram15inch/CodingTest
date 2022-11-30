@@ -29,6 +29,7 @@ fun primeNumberInRange(min:Int,max:Int):List<String>{
             resultList.add(n.toString())
     }
     return resultList
+    val a =1
 }
 
 fun primeNumber(value:Int):Boolean{
