@@ -1,5 +1,6 @@
 import com.sun.xml.internal.fastinfoset.util.StringArray
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.*
 
@@ -76,12 +77,40 @@ class CommonTest {
                             Assertions.assertEquals(tokensOutput.nextToken(), results.get(idx++)?:"null")
                         }
                 }
-
-
             }
+    }
+
+    @Test
+    fun checkSameListString() {
+        val list = mutableListOf<String>()
+        val str = "a\nb\nc\nd"
+
+        list.add("a")
+        list.add("b")
+        list.add("c")
+        list.add("d")
+
+        val token = StringTokenizer(str)
+
+        val it = list.iterator()
+        while (token.hasMoreTokens())
+            assertEquals(token.nextToken(),it.next())
+
+    }
+    @Test
+    fun listNextWithIterator(){
+        val list = mutableListOf<String>()
+
+        list.add("a")
+        list.add("b")
+        list.add("c")
+        list.add("d")
+        val it = list.iterator()
+        assertEquals("a",it.next())
+        assertEquals("b",it.next())
+        assertEquals("c",it.next())
+        assertEquals("d",it.next())
 
 
     }
-
-
 }
