@@ -1,3 +1,4 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -14,6 +15,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 }
 
 tasks.test {
