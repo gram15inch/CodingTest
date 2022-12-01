@@ -1,13 +1,13 @@
 import com.sun.xml.internal.fastinfoset.util.StringArray
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.*
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
-@OptIn(ExperimentalTime::class)
+@OptIn(ExperimentalTime::class,ExperimentalCoroutinesApi::class)
 class CommonTest {
 
     @Test
@@ -171,9 +171,8 @@ class CommonTest {
                 "${arr.first()} - ${arr.last()}"
             }
 
-
             /* for */
-            timeCheck("for") {
+            timeCheck("[array] \nfor") {
                 val arr= Array(size){0}
                 for (i in 0 until size) {
                     arr[i] = i
@@ -210,11 +209,22 @@ class CommonTest {
                 val arr= (0 until size).toList().toTypedArray()
                 "${arr.first()} - ${arr.last()}"
             }
+
+
+            /* List */
+            /* for */
+            timeCheck("[List]\nfor") {
+                val arr= mutableListOf<Int>()
+                for(i in 0 until size){
+                    arr.add(i)
+                }
+                "${arr.first()} - ${arr.last()}"
+            }
         }
 
     @Test
-    fun timeCheckWithLoopForFilter(): Unit =
-        runBlocking {
+    fun timeCheckWithLoopForFilter() =
+        runTest {
             val size = 1000000
             /* 초기값 보정 */
             timeCheck {
@@ -232,42 +242,213 @@ class CommonTest {
                 "${arr.first()} - ${arr.last()}"
             }
 
-            /* for */
-            timeCheck("for") {
-                val arr= Array(size){0}
+
+            /* arrayLambda */
+            timeCheck("arrayLambda") {
+                var arr = Array(size) { i -> i }
+
+                for (multi in 2..10)
+                    arr = arr.filter { (it != 0) && it % multi == 0 }.toTypedArray()
+                var str =""
+                for(s in arr)
+                    str += "$s "
+                "${str}"
+            }
+
+
+        //todo 필터속도 계산하기
+
+        }
+
+    @Test
+    fun timeCheckWithNormal() {
+        runTest {
+            val size = 4000000
+            /* 초기값 보정 */
+            timeCheck {
+                val arr = Array(size) { 0 }
                 for (i in 0 until size) {
                     arr[i] = i
                 }
                 "${arr.first()} - ${arr.last()}"
             }
-
-            /* arrayLambda */
-            timeCheck("arrayLambda") {
-                val arr= Array(size){i -> i}
-                 arr.filter{ (it!=0) && it%2 ==0 }.run{
-                   "${this.first()} - ${this.last()}"
-                 }
-
-
+            timeCheck {
+                val arr = Array(size) { 0 }
+                for (i in 0 until size) {
+                    arr[i] = i
+                }
+                "${arr.first()} - ${arr.last()}"
             }
-
+            timeCheck {
+                val arr = Array(size) { 0 }
+                for (i in 0 until size) {
+                    arr[i] = i
+                }
+                "${arr.first()} - ${arr.last()}"
+            }
+            timeCheck {
+                val arr = Array(size) { 0 }
+                for (i in 0 until size) {
+                    arr[i] = i
+                }
+                "${arr.first()} - ${arr.last()}"
+            }
+            timeCheck {
+                val arr = Array(size) { 0 }
+                for (i in 0 until size) {
+                    arr[i] = i
+                }
+                "${arr.first()} - ${arr.last()}"
+            }
+        }
+    }
+    @Test
+    fun timeCheckWithLaunch() =
+        runTest {
+            val size = 4000000
+            /* 초기값 보정 */
+            launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+        }
+    @Test
+    fun timeCheckWithCoroutineScope() =
+        runTest {
+            val size = 3000000
+            /* 초기값 보정 */
+            CoroutineScope(Dispatchers.Default).launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            CoroutineScope(Dispatchers.Default).launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            CoroutineScope(Dispatchers.Default).launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            CoroutineScope(Dispatchers.Default).launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
+            CoroutineScope(Dispatchers.Default).launch{
+                timeCheck {
+                    val arr= Array(size){0}
+                    for (i in 0 until size) {
+                        arr[i] = i
+                    }
+                    "${arr.first()} - ${arr.last()}"
+                }
+            }
         }
 
-    @OptIn(ExperimentalTime::class)
-    fun timeCheck(timeName: String="----start----", m: suspend () -> String) = runBlocking {
+    suspend fun timeCheck( timeName: String="----start----", m: suspend () -> String) {
        var invokeStr :String
+        val timeMillie = measureTimedValue {
+            invokeStr= m.invoke()
+        }
+        if(timeName=="----start----")
+            println(timeName)
+        else
+            println("$timeName : ${timeMillie.duration} / $invokeStr")
 
-        this.launch {
-            val timeMillie = measureTimedValue {
-                invokeStr= m.invoke()
-            }
-            if(timeName=="----start----")
-                println(timeName)
-            else
-                println("$timeName : ${timeMillie.duration} / $invokeStr")
-
+    }
+    @Test
+    fun runTestLaunchTest(){
+        runTest {
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
         }
     }
 
+    @Test
+    fun runBlockingTest(){
+        runBlocking {
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+            launch { delay(1000) }
+        }
 
+    }
+    @Test
+    fun checkTimeNoneLaunch(){
+        runBlocking {
+            delay(1000)
+            delay(1000)
+            delay(1000)
+        }
+
+    }
 }
