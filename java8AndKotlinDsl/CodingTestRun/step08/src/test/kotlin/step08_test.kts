@@ -1,8 +1,8 @@
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Timeout
 import java.util.StringTokenizer
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
@@ -12,18 +12,29 @@ class Step08Test{
 
     @OptIn(ExperimentalTime::class)
     @Test
-    @Timeout(2)
     fun timeTrack() {
+    val size = 10000000
+        runTest {
+            val arr1 : Array<Int>
+            val arr2 : Array<Int>
+            val arr3 : Array<Int>
+            val timeMillie3 = measureTimedValue { arr3= primeNumbersInRange(1,size)}
 
-        runBlocking {
-            this.launch {
-                 val timeMillie = measureTimedValue { primeNumbersInRangeWithFilteredList(1,1000000) }
-                println("측정시간1 : ${timeMillie.duration}")
-            }
-            this.launch {
-                 val timeMillie2 = measureTimedValue { primeNumbersInRange(1,1000000) }
-                println("측정시간2 : ${timeMillie2.duration}")
-            }
+            val timeMillie = measureTimedValue { arr1= primeNumbersInRangeWithSieve(1,size)}
+            println("측정시간1 : ${timeMillie.duration}")
+             val timeMillie2 = measureTimedValue { arr2= primeNumbersInRange(1,size) }
+            println("측정시간2 : ${timeMillie2.duration}")
+
+
+            val ar1it= arr1.iterator()
+            val ar2it= arr2.iterator()
+
+          println("${arr1.size} /${arr1.first() } - ${arr1.last()}")
+          println("${arr2.size} /${arr2.first() } - ${arr2.last()}")
+
+
+            while (ar2it.hasNext())
+                assertEquals(ar2it.next(),ar1it.next())
         }
 
     }
@@ -40,9 +51,9 @@ class Step08Test{
             val valueInt1 = tokensInput.nextToken().toInt()
             val valueInt2 = tokensInput.nextToken().toInt()
             val tokensOutput = StringTokenizer(value.second)
-            val resultList :List<String>
+            val resultList :Array<Int>
             val timeMillie = measureTimedValue {
-                resultList =  primeNumbersInRangeWithFilteredList(valueInt1,valueInt2)
+                resultList =  primeNumbersInRangeWithSieve(valueInt1,valueInt2)
             }
 
             resultList.also { results->
@@ -81,6 +92,7 @@ class Step08Test{
     fun exactPrimeNumberWithArray(){
         val values = listOf(
             Pair("3 16","3\n5\n7\n11\n13"),
+            Pair("1 16","2\n3\n5\n7\n11\n13"),
         )
 
         for(value in values){
@@ -89,7 +101,7 @@ class Step08Test{
             val valueInt2 = tokensInput.nextToken().toInt()
             val tokensOutput = StringTokenizer(value.second)
 
-            primeNumbersInRangeWithFilteredList(valueInt1,valueInt2)
+            primeNumbersInRangeWithSieve(valueInt1,valueInt2)
                 .also { results->
                     val it = results.iterator()
                     while(tokensOutput.hasMoreTokens()){

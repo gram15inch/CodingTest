@@ -1,6 +1,5 @@
 
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.sqrt
 
 fun main() {
@@ -11,80 +10,41 @@ fun main() {
     val valueInt1 = tokens.nextToken().toInt()
     val valueInt2 = tokens.nextToken().toInt()
 
+    val result = primeNumbersInRangeWithSieve(valueInt1,valueInt2)
 
-    val result = primeNumbersInRange(valueInt1,valueInt2)
-
-    for (it in result){
+    for (it in result)
         bw.write("${it}\n")
-    }
-   /* result.forEach{
-        bw.write("${it}\n")
-    }*/
 
     bw.flush()
     bw.close()
     br.close()
-
-
 }
 
 /* 빠른 소수 구하기 에라토스테네스의 체 - 1929 */
-fun primeNumbersInRangeWithFilteredList(min:Int, max:Int):List<String>{
-   // val intList = mutableListOf<Int>()
-    var areList = mutableListOf<Int>()
-   // var areList :List<Int> = (2..max).toList()
-
-    for(n in 2..max)
-        areList.add(n)
-
-    //var multiple = 2
-    var multiple = 2
+fun primeNumbersInRangeWithSieve(min:Int, max:Int):Array<Int>{
+    val arrList = Array(max+1){i->i}
     val sqrtMax= sqrt(max.toDouble()).toInt()
-    do{
-        areList.filterNot { ( (it!=multiple) && (it%multiple)==0) }
-            .also {filteredList->
-                areList = filteredList as ArrayList<Int>
-                //multiple++
-                multiple = filteredList.first { multiple < it }
+
+    (0..1).forEach{ arrList[it]=0 }
+
+    for(multiple in (2..sqrtMax)){
+        if(arrList[multiple] != 0)
+            for(idx in (multiple + multiple..max) step(multiple)){
+               arrList[idx] = 0
             }
     }
-    while(multiple < sqrtMax)
-    return  areList.filter{ (it in min..max) }
-        .map{it.toString()}
+    return  arrList.filter{ (it in min..max) && it>0 }.toTypedArray()
 }
-fun primeNumbersInRangeWithFilteredList2(min:Int, max:Int):List<String>{
-
-    val arrList = IntArray(1000003)
-
-    for(n in 0..max)
-        arrList[n] = n
-
-    var multiple = 2
-    val sqrtMax= sqrt(max.toDouble()).toInt()
-
-
-    var i =2
-    var j = i + i
-    while(i<=max){
-        if(arrList[i]==0) continue
-        while(j<=max){
-            j+=i
-            arrList[j]=0
-        }
-    }
-    return  arrList.filter{ (it in min..max) }
-        .map{it.toString()}
-}
-
 
 /* 빠른 소수 구하기 sqrt - 1929 */
-fun primeNumbersInRange(min:Int, max:Int):ArrayList<String>{
-    val resultList = arrayListOf<String>()
-    (min..max).forEach{n->
-        if(isPrimeNumberWithSqrt(n))
-            resultList.add(n.toString())
+fun primeNumbersInRange(min:Int, max:Int):Array<Int>{
+    val resultList = Array(max-min+1){
+        if(isPrimeNumberWithSqrt(it+min))
+            (it+min)
+        else
+            0
     }
-    return resultList
+    return  resultList.filter { it!=0 }.toTypedArray()
 }
 fun isPrimeNumberWithSqrt(value:Int):Boolean{
 
@@ -97,9 +57,6 @@ fun isPrimeNumberWithSqrt(value:Int):Boolean{
     }
     return true
 }
-
-
-// --
 fun isPrimeNumber(value:Int):Boolean{
 
     if(value<2)

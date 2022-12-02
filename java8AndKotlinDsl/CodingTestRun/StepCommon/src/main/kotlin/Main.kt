@@ -1,4 +1,3 @@
-import com.sun.xml.internal.fastinfoset.util.StringArray
 
 import java.util.*
 
@@ -54,16 +53,16 @@ fun primeFactorizationRun(){
 }
 
 /* 알파벳 갯수 */
-fun numberOfChar(char1:Char, char2:Char, strArr: StringArray):String{
+fun numberOfChar(char1:Char, char2:Char, strArr: Array<String>):String{
     val arr = IntArray(200)
-    for(idx in 0 until strArr.size)
-        strArr[idx]
+    for(element in strArr)
+        element
             .toCharArray()
             .forEach {char-> arr[char.code]++ }
 
     return "${arr[char1.code]} ${arr[char2.code]}"
 }
-@Suppress("unused")
+@Suppress("unused","SpellCheckingInspection")
 fun numberOfCharRun(){
 
     /*  [value]
@@ -79,9 +78,7 @@ fun numberOfCharRun(){
     val valueChar1 = tokens.nextToken().first()
     val valueChar2 = tokens.nextToken().first()
 
-    val valueArray = StringArray()
-    valueArray.add(br.readLine())
-    valueArray.add(br.readLine())
+    val valueArray = Array<String>(tokens.countTokens()){ tokens.nextToken()}
 
     val result = numberOfChar(valueChar1,valueChar2,valueArray)
 
