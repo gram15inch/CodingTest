@@ -170,7 +170,7 @@ class CommonTest {
 
     @Test fun timeCheckToTypeArray() = runTest{
         timeCheck(){
-                        
+
             ""
         }
     }
