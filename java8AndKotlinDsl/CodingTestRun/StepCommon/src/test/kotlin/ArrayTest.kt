@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 class ArrayTest {
 
     @Test
-    fun arrayInitTest() {
+    fun dataCheckDefaultFalseWithBoolArray() {
         val boolArr = BooleanArray(11)
         Assertions.assertEquals(false, boolArr[0])
         Assertions.assertEquals(false, boolArr[10])

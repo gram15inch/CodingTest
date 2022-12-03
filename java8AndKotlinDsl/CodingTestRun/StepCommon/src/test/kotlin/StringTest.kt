@@ -5,7 +5,7 @@ import java.util.*
 class StringTest {
 
     @Test
-    fun tokenToChar() {
+    fun convertTokenToChar() {
         val value = "a b"
         val tokens = StringTokenizer(value)
 
@@ -18,7 +18,7 @@ class StringTest {
 
     @Test
     @Suppress("SpellCheckingInspection")
-    fun tokenToStringArray() {
+    fun convertTokenToStringArray() {
         val value =
             """ aaaaaabbb
                     bcccccccc
@@ -34,7 +34,7 @@ class StringTest {
     }
 
     @Test  /* 첫행의 글자의 갯수 */
-    fun numberOfCharWithFirstLine() {
+    fun getNumberOfCharWithFirstLine() {
         @Suppress("SpellCheckingInspection")
         val value =
             """ a b
@@ -53,7 +53,7 @@ class StringTest {
     }
 
     @Test  /* 첫행의 글자의 갯수 */
-    fun primeFactorizationFirstLine() {
+    fun getPrimeFactorizationWithFirstLine() {
         val values = listOf(
             Pair("3", "3"),
             Pair("6", "2\n3"),
