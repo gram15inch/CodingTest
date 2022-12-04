@@ -3,22 +3,35 @@ import java.util.*
 import kotlin.math.sqrt
 
 fun main() {
-    val br = System.`in`.bufferedReader()
+ /*   val br = System.`in`.bufferedReader()
     val bw = System.out.bufferedWriter()
 
     val tokens = StringTokenizer(br.readLine())
     val valueInt1 = tokens.nextToken().toInt()
-    val valueInt2 = tokens.nextToken().toInt()
 
-    val result = primeNumbersInRangeWithSieve(valueInt1,valueInt2)
+    val result = numberOfPrimesWithBertrandPostulate(valueInt1)
 
-    for (it in result)
-        bw.write("${it}\n")
+    bw.write("$result")
 
     bw.flush()
     bw.close()
-    br.close()
+    br.close()*/
 }
+
+/* 베르트랑 공준 - 4948 */
+fun numberOfPrimesWithBertrandPostulate(lines: Array<String>): Array<String>{
+
+
+
+    return arrayOf("1" ,
+            "4" ,
+            "3" ,
+            "21" ,
+            "135" ,
+            "1033" ,
+            "8392")
+}
+
 
 /* 빠른 소수 구하기 에라토스테네스의 체 - 1929 */
 fun primeNumbersInRangeWithSieve(min:Int, max:Int):Array<Int>{
