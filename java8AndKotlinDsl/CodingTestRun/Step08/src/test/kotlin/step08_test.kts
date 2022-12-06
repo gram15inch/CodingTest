@@ -9,7 +9,6 @@ import kotlin.time.measureTimedValue
 @OptIn(ExperimentalTime::class)
 class Step08Test {
 
-
     @Test
     fun exactNumberOfPrimeWithBertrandPostulate() {
         val values = listOf(
@@ -36,8 +35,8 @@ class Step08Test {
             val tokensInput = StringTokenizer(value.first)
             val tokensOutput = StringTokenizer(value.second)
 
-            val arrStringIn = Array<String>(tokensInput.countTokens()){tokensInput.nextToken()}
-            val arrStringOut :Array<String>
+            val arrStringIn = Array(tokensInput.countTokens()){tokensInput.nextToken().toInt()}
+            val arrStringOut :Array<Int>
 
             val arrStringExpect = Array<String>(tokensOutput.countTokens()){tokensOutput.nextToken()}
 
@@ -45,8 +44,7 @@ class Step08Test {
                 arrStringOut = numberOfPrimesWithBertrandPostulate(arrStringIn)
             }
             for(i in arrStringExpect.indices)
-                assertEquals(arrStringExpect[i], arrStringOut[i])
-//todo 터미널 입력 부분 완성 , 함수완성
+                assertEquals(arrStringExpect[i], arrStringOut[i].toString())
 
             println("측정시간 : $timeMillie")
         }
@@ -54,28 +52,10 @@ class Step08Test {
 
     @Test
     fun timeTrack() {
-        val size = 10000000
         runTest {
-            val arr1: Array<Int>
-            val arr2: Array<Int>
-            val arr3: Array<Int>
-            val timeMillie3 = measureTimedValue { arr3 = primeNumbersInRange(1, size) }
-
-            val timeMillie = measureTimedValue { arr1 = primeNumbersInRangeWithSieve(1, size) }
-            println("측정시간1 : ${timeMillie.duration}")
-            val timeMillie2 = measureTimedValue { arr2 = primeNumbersInRange(1, size) }
-            println("측정시간2 : ${timeMillie2.duration}")
 
 
-            val ar1it = arr1.iterator()
-            val ar2it = arr2.iterator()
 
-            println("${arr1.size} /${arr1.first()} - ${arr1.last()}")
-            println("${arr2.size} /${arr2.first()} - ${arr2.last()}")
-
-
-            while (ar2it.hasNext())
-                assertEquals(ar2it.next(), ar1it.next())
         }
 
     }
