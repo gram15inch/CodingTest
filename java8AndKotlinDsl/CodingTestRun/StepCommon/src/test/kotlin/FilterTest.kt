@@ -1,9 +1,8 @@
 import kotlinx.coroutines.*
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import util.test.timeCheck
-import util.test.timeCheckAsync
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
@@ -12,6 +11,7 @@ class FilterTest {
 
 
     @Test
+    @DisplayName("람다로 필터조건 초기화하기")
     fun createFilterWithLambda() {
         val list = mutableListOf<Int>()
         for (n in 1..10) {

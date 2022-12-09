@@ -80,7 +80,7 @@ class Step08Test {
             resultList.also { results ->
                 val it = results.iterator()
                 while (tokensOutput.hasMoreTokens()) {
-                    assertEquals(tokensOutput.nextToken(), it.next())
+                    assertEquals(tokensOutput.nextToken().toInt(), it.next())
                 }
             }
             println("측정시간 : $timeMillie")
@@ -129,7 +129,7 @@ class Step08Test {
                 .also { results ->
                     val it = results.iterator()
                     while (tokensOutput.hasMoreTokens()) {
-                        assertEquals(tokensOutput.nextToken(), it.next())
+                        assertEquals(tokensOutput.nextToken().toInt(), it.next())
                     }
                 }
         }
