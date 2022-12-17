@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4011bca-e2b9-4bc3-8a30-ac0784d3ef5b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JUnit5Test/src/test/kotlin/standardTest/AssertionTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JUnit5Test/src/test/kotlin/standardTest/ParameterizedTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JUnit5Test/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit5Test/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JUnit5Test/src/test/kotlin/standardTest/AssertionTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/JUnit5Test/src/test/kotlin/standardTest/AssertionTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,8 +68,8 @@
       <recent name="C:\Source\study\java8AndKotlinDsl\JUnitTest\JUnit4Test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AssertionTest.test2">
-    <configuration name="AssertionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AssertionTest.test6 (1)">
+    <configuration name="AssertionTest.test4.[8] [1, 2], [1, 2], false, expected: [Ljava.lang.Integer;@5ed828d&lt;[1, 2]&gt; but was: [Ljava.lang.Integer;@50d0686&lt;[1, 2]&gt;" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JUnitTest.JUnit5Test.test" />
       <extension name="coverage">
         <pattern>
@@ -78,12 +79,16 @@
       </extension>
       <option name="PACKAGE_NAME" value="standardTest" />
       <option name="MAIN_CLASS_NAME" value="standardTest.AssertionTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="test4(java.lang.Object,java.lang.Object,boolean,java.lang.String)" />
+      <option name="TEST_OBJECT" value="uniqueId" />
+      <uniqueIds>
+        <uniqueId value="[engine:junit-jupiter]/[class:standardTest.AssertionTest]/[test-template:test4(java.lang.Object, java.lang.Object, boolean, java.lang.String)]/[test-template-invocation:#8]" />
+      </uniqueIds>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AssertionTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AssertionTest.test5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JUnitTest.JUnit5Test.test" />
       <extension name="coverage">
         <pattern>
@@ -93,13 +98,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="standardTest" />
       <option name="MAIN_CLASS_NAME" value="standardTest.AssertionTest" />
-      <option name="METHOD_NAME" value="test1" />
+      <option name="METHOD_NAME" value="test5(java.lang.Object,java.lang.Object,boolean,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AssertionTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AssertionTest.test6 (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JUnitTest.JUnit5Test.test" />
       <extension name="coverage">
         <pattern>
@@ -109,13 +114,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="standardTest" />
       <option name="MAIN_CLASS_NAME" value="standardTest.AssertionTest" />
-      <option name="METHOD_NAME" value="test2" />
+      <option name="METHOD_NAME" value="test6([Ljava.lang.Integer;,[Ljava.lang.Integer;,boolean,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AssertionTest.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AssertionTest.test6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JUnitTest.JUnit5Test.test" />
       <extension name="coverage">
         <pattern>
@@ -125,13 +130,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="standardTest" />
       <option name="MAIN_CLASS_NAME" value="standardTest.AssertionTest" />
-      <option name="METHOD_NAME" value="test3" />
+      <option name="METHOD_NAME" value="test6" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DisplayNameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AssertionTest.test7" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JUnitTest.JUnit5Test.test" />
       <extension name="coverage">
         <pattern>
@@ -140,19 +145,20 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="standardTest" />
-      <option name="MAIN_CLASS_NAME" value="standardTest.DisplayNameTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="standardTest.AssertionTest" />
+      <option name="METHOD_NAME" value="test7" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.AssertionTest.test2" />
-        <item itemvalue="JUnit.AssertionTest" />
-        <item itemvalue="JUnit.AssertionTest.test3" />
-        <item itemvalue="JUnit.AssertionTest.test1" />
-        <item itemvalue="JUnit.DisplayNameTest" />
+        <item itemvalue="JUnit.AssertionTest.test6 (1)" />
+        <item itemvalue="JUnit.AssertionTest.test5" />
+        <item itemvalue="JUnit.AssertionTest.test7" />
+        <item itemvalue="JUnit.AssertionTest.test6" />
+        <item itemvalue="JUnit.AssertionTest.test4.[8] [1, 2], [1, 2], false, expected: [Ljava.lang.Integer;@5ed828d&lt;[1, 2]&gt; but was: [Ljava.lang.Integer;@50d0686&lt;[1, 2]&gt;" />
       </list>
     </recent_temporary>
   </component>
@@ -167,7 +173,7 @@
       <workItem from="1670966982291" duration="5311000" />
       <workItem from="1671061570579" duration="3105000" />
       <workItem from="1671076782633" duration="7122000" />
-      <workItem from="1671152068229" duration="4419000" />
+      <workItem from="1671152068229" duration="23048000" />
     </task>
     <servers />
   </component>
