@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fa456f2-cd9e-476b-9c0e-5c6c0063a5c8" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6fa456f2-cd9e-476b-9c0e-5c6c0063a5c8" name="Changes" comment="Changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,7 +79,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "라이브러리",
+    "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2520138",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
@@ -90,6 +88,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Source\edu-basic-kotlin\java8AndKotlinDsl" />
       <recent name="C:\Source\edu-basic-kotlin\java8AndKotlinDsl\CodingTestRun" />
       <recent name="C:\Source\edu-basic-kotlin\java8AndKotlinDsl\CodingTestRun\Step09\src" />
     </key>
@@ -170,7 +169,7 @@
       <workItem from="1677075451476" duration="138000" />
       <workItem from="1677075603853" duration="465000" />
       <workItem from="1677076081184" duration="164000" />
-      <workItem from="1677076323353" duration="1303000" />
+      <workItem from="1677076323353" duration="1364000" />
     </task>
     <servers />
   </component>
