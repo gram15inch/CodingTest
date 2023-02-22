@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="CodingTestRun.Step09" target="11" />
+      <module name="CodingTestRun.Step09.main" target="11" />
+      <module name="CodingTestRun.Step09.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
