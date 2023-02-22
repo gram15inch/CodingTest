@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fa456f2-cd9e-476b-9c0e-5c6c0063a5c8" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingTestRun/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/CodingTestRun/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingTestRun/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/CodingTestRun/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +29,17 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/CodingTestRun">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CodingTestRun" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -77,7 +81,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "모듈",
+    "project.structure.last.edited": "라이브러리",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2520138",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
@@ -166,7 +170,7 @@
       <workItem from="1677075451476" duration="138000" />
       <workItem from="1677075603853" duration="465000" />
       <workItem from="1677076081184" duration="164000" />
-      <workItem from="1677076323353" duration="683000" />
+      <workItem from="1677076323353" duration="1303000" />
     </task>
     <servers />
   </component>
