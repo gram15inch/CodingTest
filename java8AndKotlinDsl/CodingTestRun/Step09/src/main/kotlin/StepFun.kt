@@ -1,4 +1,5 @@
-/* 2738 */
+/* 2738 *//*
+
 fun matrixAdd(a: Matrix, b: Matrix): Matrix {
 
     return a.apply {
@@ -10,7 +11,9 @@ fun matrixAdd(a: Matrix, b: Matrix): Matrix {
     }
 }
 
-/* 2566 */
+*/
+/* 2566 *//*
+
 fun maxValue(a: Matrix): String {
     var max = -1
     var index = ""
@@ -30,7 +33,9 @@ fun maxValue(a: Matrix): String {
 }
 
 
-/* 10798 */
+*/
+/* 10798 *//*
+
 
 fun verticalRead(a:Matrix):String{
     val sb = StringBuffer()
@@ -50,6 +55,31 @@ fun verticalRead(a:Matrix):String{
         }
         sb.toString()
     }
+}
+
+*/
+/* 2563 *//*
+
+fun drawPaper(dp: Matrix,x:Int,y:Int){
+    dp.matArr.apply {
+        repeat(10){row->
+            repeat(10){col->
+                this[y+row][x+col]=1
+            }
+        }
+    }
+}
+
+fun calPaper(dp:Matrix):Int{
+    var sum =0
+    dp.matArr.also {arr->
+        repeat(100){row->
+            repeat(100){col->
+                sum += arr[row][col]
+            }
+        }
+    }
+    return sum
 }
 class Matrix constructor(val col: Int, val row: Int) {
 
@@ -110,3 +140,4 @@ class Matrix constructor(val col: Int, val row: Int) {
 
 
 }
+*/

@@ -69,4 +69,25 @@ class Step09Test {
         assertEquals("Aa0aPAf985Bz1EhCz2W3D1gkD6x",verticalRead(aM))
     }
 
+    @Test
+    fun repeatTest(){
+        var arr = Array(10){0}
+        repeat(10){
+           arr[it] = it
+        }
+
+        assertEquals(0,arr[0])
+        assertEquals(9,arr[9])
+    }
+
+    @Test
+    fun calPaperTest(){
+
+        val dp = Matrix(100,100)
+        drawPaper(dp,3,7)
+        drawPaper(dp,15,7)
+        drawPaper(dp,5,2)
+
+        assertEquals(260,calPaper(dp))
+    }
 }
