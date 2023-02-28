@@ -86,5 +86,10 @@ class Step10Test {
 
     }
 
+    @Test
+    fun middleArrTest(){
+        val arr = arrayOf(10,40,30,60,30)
+        assertEquals("34\n30",middleArr(arr))
+    }
 
 }

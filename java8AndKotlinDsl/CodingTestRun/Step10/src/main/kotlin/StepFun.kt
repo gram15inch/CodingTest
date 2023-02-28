@@ -30,3 +30,20 @@ fun insertSortArr(arr: Array<Int>): Array<Int> {
 }
 
 
+/* 2587 */
+fun middleArr(arr: Array<Int>): String {
+    var sum = 0
+    arr.forEach {
+        sum += it
+    }
+    val avg: Int = sum / 5
+    val mid = selectSortArr(arr)[2]
+
+    return "$avg\n${mid}"
+}
+
+/* 25305 */
+fun cutArr(arr:Array<Int>,cut:Int): Int {
+    return selectSortArr(arr)[arr.size-cut]
+}
+
