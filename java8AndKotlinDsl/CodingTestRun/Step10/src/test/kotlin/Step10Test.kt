@@ -92,4 +92,20 @@ class Step10Test {
         assertEquals("34\n30",middleArr(arr))
     }
 
+     @Test
+    fun kotlinArrWorstTest(){
+         val list = mutableListOf<Int>()
+         for (i in 1000000 downTo 1)
+             list.add(i)
+        val rsArr = kotlinSort(list.toTypedArray())
+        val sortedArr = Array(1000000){it+1}
+
+         repeat(rsArr.size){
+             assertEquals(sortedArr[it],rsArr[it])
+         }
+
+    }
+
+
+
 }

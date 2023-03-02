@@ -47,3 +47,7 @@ fun cutArr(arr:Array<Int>,cut:Int): Int {
     return selectSortArr(arr)[arr.size-cut]
 }
 
+
+/* 2751 */
+
+fun kotlinSort(arr:Array<Int>): List<Int> = arr.sorted()

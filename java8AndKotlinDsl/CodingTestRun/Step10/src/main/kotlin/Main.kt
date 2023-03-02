@@ -1,5 +1,3 @@
-import java.util.StringTokenizer
-
 fun main() {
 
     val br = System.`in`.bufferedReader()
@@ -7,9 +5,21 @@ fun main() {
 
 
     val times = br.readLine().toInt()
-    val arr = Array(times) { br.readLine().toInt() }
+    var min = 10001
+    var max = -1
+    val arr = Array(times) {
+        br.readLine().toInt().run {
+            if (this > max)
+                max = it
+            if (this < min)
+                min = it
+            this
+        }
+    }
 
-    for (i in arr)
+
+
+    for (i in kotlinSort(arr))
         bw.write("$i\n")
 
     bw.flush()
@@ -17,4 +27,10 @@ fun main() {
     bw.close()
 }
 
-/* 2751 */
+/* 10989 */
+
+fun countingSort(arr: Array<Int>,min:Int,max:Int): Array<Int> {
+
+    val countArr = Array(max-min+1){0}
+    return arr
+}
