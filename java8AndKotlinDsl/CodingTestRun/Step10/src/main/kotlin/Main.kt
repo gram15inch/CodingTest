@@ -13,13 +13,11 @@ fun main() {
                 max = it
             if (this < min)
                 min = it
-            this
+            this.toShort()
         }
     }
 
-
-
-    for (i in kotlinSort(arr))
+    for (i in countingSort(arr, max))
         bw.write("$i\n")
 
     bw.flush()
@@ -29,8 +27,24 @@ fun main() {
 
 /* 10989 */
 
-fun countingSort(arr: Array<Int>,min:Int,max:Int): Array<Int> {
+fun countingSort(arr: Array<Short>, max: Int): Array<Short> {
+    val countArr = Array<Short>(max+1) { 0 }
 
-    val countArr = Array(max-min+1){0}
-    return arr
+    for (i in arr) {
+        countArr[i.toInt()]++
+    }
+    repeat(countArr.size) {
+        if (it != 0)
+            countArr[it] = (countArr[it - 1] + countArr[it]).toShort()
+    }
+    val rsArr = Array<Short>(arr.size) { 0 }
+
+    for (a in arr) {
+        (countArr[a.toInt()]--).let{
+            if(it>0)
+                rsArr[it-1]=a
+        }
+    }
+
+    return rsArr
 }
