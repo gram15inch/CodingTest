@@ -7,13 +7,13 @@ fun main() {
     val times = br.readLine().toInt()
     var min = 10001
     var max = -1
-    val arr = Array(times) {
+    val arr = IntArray(times) {
         br.readLine().toInt().run {
             if (this > max)
-                max = it
+                max = this
             if (this < min)
-                min = it
-            this.toShort()
+                min = this
+            this
         }
     }
 
@@ -27,22 +27,23 @@ fun main() {
 
 /* 10989 */
 
-fun countingSort(arr: Array<Short>, max: Int): Array<Short> {
-    val countArr = Array<Short>(max+1) { 0 }
+fun countingSort(arr: IntArray, max: Int): IntArray {
+    val countArr = IntArray(max+1)
 
-    for (i in arr) {
-        countArr[i.toInt()]++
-    }
-    repeat(countArr.size) {
-        if (it != 0)
-            countArr[it] = (countArr[it - 1] + countArr[it]).toShort()
-    }
-    val rsArr = Array<Short>(arr.size) { 0 }
+    for (i in arr)
+        countArr[i]++
+
+    for(i in 1..max)
+        countArr[i] += countArr[i - 1]
+
+    val rsArr = IntArray(arr.size)
 
     for (a in arr) {
-        (countArr[a.toInt()]--).let{
-            if(it>0)
-                rsArr[it-1]=a
+        (countArr[a] - 1).let{
+            if(it>=0) {
+                rsArr[it] = a
+                countArr[a]--
+            }
         }
     }
 

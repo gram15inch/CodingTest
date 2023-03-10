@@ -109,10 +109,21 @@ class Step10Test {
     }
 
     @Test
+    fun countingArrOneTest() {
+        val arr = intArrayOf(5)
+        val rsArr = countingSort(arr, 5)
+        val sortedArr = intArrayOf(5)
+
+        repeat(rsArr.size) {
+            assertEquals(sortedArr[it], rsArr[it])
+        }
+
+    }
+    @Test
     fun countingArrTest() {
-        val arr = arrayOf<Short>(5, 2, 3, 1, 4, 2, 3, 5, 1, 7)
-        val rsArr = countingSort(arr, 7)
-        val sortedArr = arrayOf<Short>(1, 1, 2, 2, 3, 3, 4, 5, 5, 7)
+        val arr = intArrayOf(5, 2, 3, 10000, 4, 1, 3, 5, 12, 7)
+        val rsArr = countingSort(arr, 10000)
+        val sortedArr = intArrayOf( 1, 2, 3, 3, 4, 5, 5, 7,12, 10000)
 
         repeat(rsArr.size) {
             assertEquals(sortedArr[it], rsArr[it])
@@ -123,9 +134,9 @@ class Step10Test {
     @Test
     fun countingArrWorstTest() {
         val size = 10000
-        val arr = Array(size){(size-it).toShort()}
+        val arr = IntArray(size){size-it}
         val rsArr = countingSort(arr, size)
-        val sortedArr = Array(size) { (it + 1).toShort() }
+        val sortedArr = Array(size) { (it + 1) }
         repeat(rsArr.size) {
             assertEquals(sortedArr[it], rsArr[it])
         }
@@ -134,3 +145,6 @@ class Step10Test {
 
 
 }
+
+
+
