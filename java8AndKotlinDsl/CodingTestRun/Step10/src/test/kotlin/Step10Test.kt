@@ -142,6 +142,38 @@ class Step10Test {
         }
 
     }
+    @Test
+    fun blackJackTest() {
+        val arr = intArrayOf(5,6,7,8,9)
+        val rs = blackJack(5,21,arr)
+
+        assertEquals(21, rs)
+
+    }
+    @Test
+    fun blackJackTest2() {
+        val arr2 = intArrayOf(93, 181, 245, 214, 315, 36, 185, 138 ,216, 295)
+        val rs2 = blackJack(10,500,arr2)
+
+        assertEquals(497, rs2)
+
+    }
+    @Test
+    fun decompositionTest() {
+        assertEquals(198, decomposition(216))
+    }
+    @Test
+    fun decompositionMinTest() {
+        assertEquals(0, decomposition(1))
+    } @Test
+    fun decompositionMin2Test() {
+        assertEquals(1, decomposition(2))
+    }
+    @Test
+    fun decompositionMaxTest() {
+        assertEquals(0, decomposition(1000000))
+    }
+
 
 
 }

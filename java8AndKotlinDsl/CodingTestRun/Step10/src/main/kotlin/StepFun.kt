@@ -51,3 +51,65 @@ fun cutArr(arr:Array<Int>,cut:Int): Int {
 /* 2751 */
 
 fun kotlinSort(arr:Array<Int>): List<Int> = arr.sorted()
+
+
+
+/* 10989 */
+
+fun countingSort(arr: IntArray, max: Int): IntArray {
+    val countArr = IntArray(max+1)
+
+    for (i in arr)
+        countArr[i]++
+
+    for(i in 1..max)
+        countArr[i] += countArr[i - 1]
+
+    val rsArr = IntArray(arr.size)
+
+    for (a in arr) {
+        (countArr[a] - 1).let{
+            if(it>=0) {
+                rsArr[it] = a
+                countArr[a]--
+            }
+        }
+    }
+
+    return rsArr
+}
+
+/* 2798 */
+fun blackJack(n:Int,m:Int,arr:IntArray): Int {
+    var max = 0
+    for(i in 0 until n-2)
+        for(j in i+1 until n-1)
+            for(k in j+1 until n){
+                val sum = arr[i] +arr[j] +arr[k]
+                if(sum==m){
+                    return m
+                }else if(sum<m)
+                    if(max<sum)
+                        max = sum
+            }
+
+    return max
+}
+
+/* 2231 */
+fun decomposition(n :Int): Int {
+    var min = 0
+
+    do{
+        var sum = min
+        val arrs= min.toString().toCharArray()
+        for(a in arrs){
+            sum += a -'0'
+        }
+        if(sum==n)
+            return min
+    }
+    while(++min<n)
+
+    return 0
+}
