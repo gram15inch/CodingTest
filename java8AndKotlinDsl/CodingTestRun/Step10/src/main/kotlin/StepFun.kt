@@ -28,7 +28,35 @@ fun insertSortArr(arr: Array<Int>): Array<Int> {
     }
     return arr
 }
+fun bubbleSort(arr: IntArray): IntArray {
+    val n = arr.size
+    for (i in 0 until n) {
+        for (j in 0 until n - i - 1) {
+            // 인접한 두 원소를 비교하여 큰 값을 오른쪽으로 이동
+            if (arr[j] > arr[j + 1]) {
+                val temp = arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+            }
+        }
+    }
+    return arr
+}
 
+fun insertionSort(arr: IntArray): IntArray {
+    val n = arr.size
+    for (i in 1 until n) {
+        val key = arr[i]
+        var j = i - 1
+        // key 값을 적절한 위치에 삽입
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j]
+            j--
+        }
+        arr[j + 1] = key
+    }
+    return arr
+}
 
 /* 2587 */
 fun middleArr(arr: Array<Int>): String {

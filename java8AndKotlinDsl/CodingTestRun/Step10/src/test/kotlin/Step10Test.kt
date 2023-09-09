@@ -23,6 +23,24 @@ class Step10Test {
             assertEquals(sortedArr[it], rsArr[it])
         }
     }
+    @Test
+    fun bubbleSortTest() {
+        val arr = intArrayOf(6, -5, -2, 8, 4, 10, 7)
+        val sortedArr = arrayOf(-5, -2, 4, 6, 7, 8, 10)
+        val rsArr = bubbleSort(arr)
+        repeat(arr.size) {
+            assertEquals(sortedArr[it], rsArr[it])
+        }
+    }
+    @Test
+    fun insertSortTest2() {
+        val arr = intArrayOf(6, -5, -2, 8, 4, 10, 7)
+        val sortedArr = intArrayOf(-5, -2, 4, 6, 7, 8, 10)
+        val rsArr = insertionSort(arr)
+        repeat(arr.size) {
+            assertEquals(sortedArr[it], rsArr[it])
+        }
+    }
 
 
     @Test
